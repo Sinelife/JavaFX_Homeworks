@@ -13,7 +13,7 @@ import java.util.List;
  * Клас тестер, вызывающий метод run класа TimeCounter
  */
 public class Tester {
-    public static final int LIST_SIZE = 3_000_000;
+    public static final int LIST_SIZE = 1_000_000;
 
 
     public static void main(String[] args) {

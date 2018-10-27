@@ -173,7 +173,7 @@ public class TimeCounter {
                 break;
         }
         long end = System.nanoTime();
-        return String.valueOf((end - start) / 1000000) + " ms";
+        return String.valueOf((end - start) / 1000) + " mcrs";
     }
 
 }
