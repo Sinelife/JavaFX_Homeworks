@@ -1,5 +1,8 @@
 package timecounter;
 
+import javafx.beans.property.StringProperty;
+import javafx.scene.control.Label;
+
 /**
  * Клас с методами утилитами
  */
@@ -50,5 +53,6 @@ public class Methods {
         }
         return newStr;
     }
+
 
 }

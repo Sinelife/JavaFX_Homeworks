@@ -9,6 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import timecounter.Methods;
 import timecounter.TimeCounter;
 
 import java.util.ArrayList;
@@ -24,7 +25,10 @@ public class Controller {
     String [][] resultMatrix;
 
     @FXML
-    TextField textField;
+    TextField sizeField;
+
+    @FXML
+    TextField typeField;
 
     @FXML
     Label label_0_0;
@@ -72,7 +76,10 @@ public class Controller {
     ComboBox comboBox;
 
     private int size = 100_000;
+    private String type = "ArrayList";
 
+    @FXML
+    private int firstColumnLength;
 
 
     public void fillGridTable(int size) {
@@ -80,43 +87,86 @@ public class Controller {
         TimeCounter tc = new TimeCounter(arrayList, size);
         String[][] resultMatrix = tc.getResultMatrix();
 
-
-        comboBox = new ComboBox<String>();
-        comboBox.getItems().addAll("A","B","C","D","E");
-        //comboBox.setItems(FXCollections.observableArrayList("x"));
+        ObservableList lists = FXCollections.observableArrayList(
+                "LinkedList", "ArrayList", "MyLinkedList", "MyArrayList");
+        comboBox = new ComboBox(lists);
     }
+
+
 
 
 
     @FXML
     private void handleChose() {
-        size = Integer.valueOf(textField.getText());
-        List<Object> arrayList = new LinkedList<>();
-        TimeCounter tc = new TimeCounter(arrayList, size);
+        size = Integer.valueOf(sizeField.getText());
+        type = typeField.getText();
+        List<Object> list =  new ArrayList<>();
+        if(type.equals("ArrayList")){
+            list = new ArrayList<>();
+        }
+        else if(type.equals("LinkedList")){
+            list = new LinkedList<>();
+        }
+        else if(type.equals("MyArrayList")){
+            list = new ArrayList<>();
+        }
+        else if(type.equals("MyLinkedList")){
+            list = new ArrayList<>();
+        }
+        TimeCounter tc = new TimeCounter(list, size);
         String[][] resultMatrix = tc.getResultMatrix();
-        label_0_0.setText(resultMatrix[0][0]);
-        label_0_1.setText(resultMatrix[0][1]);
-        label_0_2.setText(resultMatrix[0][2]);
-        label_0_3.setText(resultMatrix[0][3]);
-        label_1_0.setText(resultMatrix[1][0]);
-        label_1_1.setText(resultMatrix[1][1]);
-        label_1_2.setText(resultMatrix[1][2]);
-        label_1_3.setText(resultMatrix[1][3]);
-        label_2_0.setText(resultMatrix[2][0]);
-        label_2_1.setText(resultMatrix[2][1]);
-        label_2_2.setText(resultMatrix[2][2]);
-        label_2_3.setText(resultMatrix[2][3]);
-        label_3_0.setText(resultMatrix[3][0]);
-        label_3_1.setText(resultMatrix[3][1]);
-        label_3_2.setText(resultMatrix[3][2]);
-        label_3_3.setText(resultMatrix[3][3]);
-        label_4_0.setText(resultMatrix[4][0]);
-        label_4_1.setText(resultMatrix[4][1]);
-        label_4_2.setText(resultMatrix[4][2]);
-        label_4_3.setText(resultMatrix[4][3]);
+        Label[] labels = {label_0_0, label_1_0, label_2_0, label_3_0, label_4_0,
+                label_0_1, label_1_1, label_2_1, label_3_1, label_4_1,
+                label_0_2, label_1_2, label_2_2, label_3_2, label_4_2,
+                label_0_3, label_1_3, label_2_3, label_3_3, label_4_3
+        };
+        fillAndResizeColumn(resultMatrix, labels);
+    }
+
+    public static void fillAndResizeColumn(String[][] resultMatrix, Label[] labels){
+        int counter = 0;
+        for (int i = 0; i < resultMatrix[0].length; i++) {
+            Label[] labelsInColumn = new Label[resultMatrix.length];
+            for (int j = 0; j < resultMatrix.length; j++, counter++) {
+                labelsInColumn[j] = labels[counter];
+                System.out.println(counter);
+            }
+            fillColumnOfTable(i, resultMatrix, labelsInColumn);
+            int size = getLongestLengthOfStrings(labelsInColumn);
+            setWidthOfLabelsInColumn(size * 15, labelsInColumn);
+        }
     }
 
 
+    public static void fillColumnOfTable(int num, String[][] resultMatrix, Label[] labels){
+        for (int i = 0; i < labels.length; i++) {
+            labels[i].setText(resultMatrix[i][num]);
+        }
+    }
+
+
+    /**
+     * Метод для нахождения длины самой длинной строки из масива строк
+     */
+    public static int getLongestLengthOfStrings(Label[] labels){
+        int max = 0;
+        for (int i = 0; i < labels.length; i++) {
+            if(labels[i].getText().length() > max){
+                max = labels[i].getText().length() + 5;
+            }
+        }
+        return max;
+    }
+
+
+    /**
+     * Метод для задания заданого размера всем элементам Label в строке
+     */
+    public static void setWidthOfLabelsInColumn(int size, Label[] labels){
+        for (int i = 0; i < labels.length; i++) {
+            labels[i].setPrefWidth(size);
+        }
+    }
 
 
 

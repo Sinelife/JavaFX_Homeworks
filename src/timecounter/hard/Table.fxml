@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="timecounter.hard.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="timecounter.hard.Controller">
    <children>
-      <GridPane layoutX="60.0" layoutY="60.0" prefHeight="390.0" prefWidth="851.0">
+      <GridPane gridLinesVisible="true" layoutX="60.0" layoutY="60.0" prefHeight="390.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -22,91 +23,92 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="label_4_2" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" text="Label" textFill="#068d3e" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <Label fx:id="label_4_2" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="System Bold" size="23.0" />
                </font></Label>
-            <Label fx:id="label_0_1" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" text="Label" textFill="#068d3e" GridPane.columnIndex="1">
+            <Label fx:id="label_0_1" alignment="CENTER" ellipsisString="" prefHeight="39.0" prefWidth="202.0" textAlignment="CENTER" GridPane.columnIndex="1">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="System Bold" size="23.0" />
                </font></Label>
-            <Label fx:id="label_0_2" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" text="Label" textFill="#068d3e" GridPane.columnIndex="2">
+            <Label fx:id="label_0_2" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" GridPane.columnIndex="2">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="System Bold" size="23.0" />
                </font></Label>
-            <Label fx:id="label_0_3" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" text="Label" textFill="#068d3e" GridPane.columnIndex="3">
+            <Label fx:id="label_0_3" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" GridPane.columnIndex="3">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="System Bold" size="23.0" />
                </font></Label>
-            <Label fx:id="label_1_0" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" text="Label" textFill="#068d3e" GridPane.rowIndex="1">
+            <Label fx:id="label_1_0" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" GridPane.rowIndex="1">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="System Bold" size="23.0" />
                </font></Label>
-            <Label fx:id="label_1_1" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" text="Label" textFill="#068d3e" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="label_1_1" alignment="CENTER" ellipsisString="" prefHeight="39.0" prefWidth="197.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="System Bold" size="23.0" />
                </font></Label>
-            <Label fx:id="label_2_0" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" text="Label" textFill="#068d3e" GridPane.rowIndex="2">
+            <Label fx:id="label_2_0" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" GridPane.rowIndex="2">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="System Bold" size="23.0" />
                </font></Label>
-            <Label fx:id="label_2_1" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" text="Label" textFill="#068d3e" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label fx:id="label_2_1" alignment="CENTER" ellipsisString="" prefHeight="39.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="System Bold" size="23.0" />
                </font></Label>
-            <Label fx:id="label_1_2" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" text="Label" textFill="#068d3e" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Label fx:id="label_1_2" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="System Bold" size="23.0" />
                </font></Label>
-            <Label fx:id="label_1_3" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" text="Label" textFill="#068d3e" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Label fx:id="label_1_3" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="System Bold" size="23.0" />
                </font></Label>
-            <Label fx:id="label_2_2" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" text="Label" textFill="#068d3e" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Label fx:id="label_2_2" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="System Bold" size="23.0" />
                </font></Label>
-            <Label fx:id="label_4_0" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" text="Label" textFill="#068d3e" GridPane.rowIndex="4">
+            <Label fx:id="label_4_0" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" GridPane.rowIndex="4">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="System Bold" size="23.0" />
                </font></Label>
-            <Label fx:id="label_3_0" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" text="Label" textFill="#068d3e" GridPane.rowIndex="3">
+            <Label fx:id="label_3_0" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" GridPane.rowIndex="3">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="System Bold" size="23.0" />
                </font></Label>
-            <Label fx:id="label_3_1" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" text="Label" textFill="#068d3e" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Label fx:id="label_3_1" alignment="CENTER" ellipsisString="" prefHeight="39.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="System Bold" size="23.0" />
                </font></Label>
-            <Label fx:id="label_4_1" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" text="Label" textFill="#068d3e" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <Label fx:id="label_4_1" alignment="CENTER" ellipsisString="" prefHeight="39.0" prefWidth="204.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="System Bold" size="23.0" />
                </font></Label>
-            <Label fx:id="label_3_2" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" text="Label" textFill="#068d3e" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <Label fx:id="label_3_2" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="System Bold" size="23.0" />
                </font></Label>
-            <Label fx:id="label_4_3" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" text="Label" textFill="#068d3e" GridPane.columnIndex="3" GridPane.rowIndex="4">
+            <Label fx:id="label_4_3" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="System Bold" size="23.0" />
                </font></Label>
-            <Label fx:id="label_2_3" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" text="Label" textFill="#068d3e" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <Label fx:id="label_2_3" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="System Bold" size="23.0" />
                </font></Label>
-            <Label fx:id="label_3_3" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" text="Label" textFill="#068d3e" GridPane.columnIndex="3" GridPane.rowIndex="3">
+            <Label fx:id="label_3_3" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="System Bold" size="23.0" />
                </font></Label>
-            <Label fx:id="label_0_0" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0" text="Label" textFill="#068d3e">
+            <Label fx:id="label_0_0" alignment="CENTER" ellipsisString="" prefHeight="38.0" prefWidth="144.0">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="System Bold" size="23.0" />
                </font>
             </Label>
          </children>
       </GridPane>
       <ComboBox fx:id="comboBox" layoutX="78.0" layoutY="494.0" prefWidth="150.0" />
-      <TextField fx:id="textField" layoutX="282.0" layoutY="494.0" text="1000" />
+      <TextField fx:id="sizeField" layoutX="282.0" layoutY="494.0" prefHeight="31.0" prefWidth="125.0" text="1000" />
       <Button layoutX="282.0" layoutY="566.0" mnemonicParsing="false" onAction="#handleChose" text="Button" />
+      <TextField fx:id="typeField" layoutX="442.0" layoutY="494.0" prefHeight="31.0" prefWidth="125.0" text="ArrayList" />
    </children>
 </AnchorPane>

@@ -19,11 +19,24 @@ public class Tester {
     public static void main(String[] args) {
         List<Object> arrayList = new ArrayList<>();
         TimeCounter tc = new TimeCounter(arrayList, LIST_SIZE);
-        tc.run();
+        //tc.run();
 
         List<Object> linkedList = new LinkedList<>();
         tc = new TimeCounter(linkedList, LIST_SIZE);
         tc.run();
+
+        linkedList = new LinkedList<>();
+        tc = new TimeCounter(linkedList, LIST_SIZE);
+        tc.run();
+
+        linkedList = new LinkedList<>();
+        tc = new TimeCounter(linkedList, LIST_SIZE);
+        tc.run();
+
+        linkedList = new LinkedList<>();
+        tc = new TimeCounter(linkedList, LIST_SIZE);
+        tc.run();
+
 
     }
 }
