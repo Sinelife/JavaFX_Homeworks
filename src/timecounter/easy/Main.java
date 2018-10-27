@@ -19,7 +19,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         List<Object> arrayList = new ArrayList<>();
         TimeCounter tc = new TimeCounter(arrayList, LIST_SIZE);
-        String[][] resultMatrix = tc.getResultMatrix();
+        String[][] resultMatrix = tc.getResultMatrix("dw");
         GridPane pane = new GridPane();
         int width = resultMatrix[0][0].length();
         int height = 50;

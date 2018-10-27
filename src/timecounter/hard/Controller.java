@@ -8,8 +8,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import timecounter.Methods;
 import timecounter.TimeCounter;
 
 import java.util.ArrayList;
@@ -21,14 +19,8 @@ public class Controller {
     // Ссылка на главное приложение.
     private MainApp mainApp;
 
-
-    String [][] resultMatrix;
-
     @FXML
     TextField sizeField;
-
-    @FXML
-    TextField typeField;
 
     @FXML
     Label label_0_0;
@@ -73,23 +65,20 @@ public class Controller {
 
 
     @FXML
-    ComboBox comboBox;
+    ComboBox typeComboBox;
+
+    @FXML
+    ComboBox dimensionComboBox;
 
     private int size = 100_000;
     private String type = "ArrayList";
-
-    @FXML
-    private int firstColumnLength;
+    private String dimensionUnits = "ns";
 
 
-    public void fillGridTable(int size) {
-        List<Object> arrayList = new ArrayList<>();
-        TimeCounter tc = new TimeCounter(arrayList, size);
-        String[][] resultMatrix = tc.getResultMatrix();
 
-        ObservableList lists = FXCollections.observableArrayList(
-                "LinkedList", "ArrayList", "MyLinkedList", "MyArrayList");
-        comboBox = new ComboBox(lists);
+    public void fillGridTable() {
+        typeComboBox.getItems().addAll("ArrayList", "LinkedList", "MyArrayList", "MyLinkedList");
+        dimensionComboBox.getItems().addAll("наносекунды", "микросекунды", "миллисекунды");
     }
 
 
@@ -99,7 +88,8 @@ public class Controller {
     @FXML
     private void handleChose() {
         size = Integer.valueOf(sizeField.getText());
-        type = typeField.getText();
+        type = typeComboBox.getSelectionModel().getSelectedItem().toString();
+        dimensionUnits = dimensionComboBox.getSelectionModel().getSelectedItem().toString();
         List<Object> list =  new ArrayList<>();
         if(type.equals("ArrayList")){
             list = new ArrayList<>();
@@ -108,13 +98,22 @@ public class Controller {
             list = new LinkedList<>();
         }
         else if(type.equals("MyArrayList")){
-            list = new ArrayList<>();
+            list = new MyArrayList<>();
         }
         else if(type.equals("MyLinkedList")){
-            list = new ArrayList<>();
+            list = new MyLinkedList<>();
         }
         TimeCounter tc = new TimeCounter(list, size);
-        String[][] resultMatrix = tc.getResultMatrix();
+        String[][] resultMatrix = null;
+        if(dimensionUnits.equals("наносекунды")){
+            resultMatrix = tc.getResultMatrix("ns");
+        }
+        else if(dimensionUnits.equals("микросекунды")){
+            resultMatrix = tc.getResultMatrix("mcs");
+        }
+        else if(dimensionUnits.equals("миллисекунды")){
+            resultMatrix = tc.getResultMatrix("ms");
+        }
         Label[] labels = {label_0_0, label_1_0, label_2_0, label_3_0, label_4_0,
                 label_0_1, label_1_1, label_2_1, label_3_1, label_4_1,
                 label_0_2, label_1_2, label_2_2, label_3_2, label_4_2,
@@ -172,7 +171,7 @@ public class Controller {
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-        fillGridTable(size);
+        fillGridTable();
     }
 
 }

@@ -95,9 +95,25 @@ public class TimeCounter {
         }
     }
 
-    public String[][] getResultMatrix(){
+    public String[][] getResultMatrix(String dimension){
         initializeList();
         fillResultMatrix();
+        for (int i = 1; i < resultMatrix.length; i++) {
+            for (int j = 1; j < resultMatrix[0].length; j++) {
+                if(dimension.equals("mcs")){
+                    double newValue = Double.valueOf(resultMatrix[i][j]) / (double)1000;
+                    resultMatrix[i][j] = newValue + " mcs";
+                }
+                else if(dimension.equals("ms")){
+                    double newValue = Double.valueOf(resultMatrix[i][j]) / (double)1000000;
+                    resultMatrix[i][j] = newValue + " ms";
+                }
+                else {
+                    resultMatrix[i][j] += " ns";
+                }
+            }
+        }
+
         return resultMatrix;
     }
 
@@ -173,7 +189,7 @@ public class TimeCounter {
                 break;
         }
         long end = System.nanoTime();
-        return String.valueOf((end - start)) + " ns";
+        return String.valueOf((end - start));
     }
 
 }
