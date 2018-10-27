@@ -1,10 +1,6 @@
 package timecounter.hard;
 
-import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,14 +10,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Controller {
+public class TableController {
 
     // Ссылка на главное приложение.
     private MainApp mainApp;
 
-    @FXML
-    TextField sizeField;
-
+    /**
+     * Все Label это ячейки таюлицы, в которые после будут выводиться значения
+     */
     @FXML
     Label label_0_0;
     @FXML
@@ -64,32 +60,51 @@ public class Controller {
     Label label_4_3;
 
 
+    /**
+     * Поле для ввода размера масива
+     */
+    @FXML
+    TextField sizeField;
+
+    /**
+     * Выпадающий список для выобра типа списка
+     */
     @FXML
     ComboBox typeComboBox;
 
+    /**
+     * Выпадающий список для выбора едениц измерения времени
+     */
     @FXML
     ComboBox dimensionComboBox;
 
-    private int size = 100_000;
-    private String type = "ArrayList";
-    private String dimensionUnits = "ns";
 
-
-
-    public void fillGridTable() {
-        typeComboBox.getItems().addAll("ArrayList", "LinkedList", "MyArrayList", "MyLinkedList");
-        dimensionComboBox.getItems().addAll("наносекунды", "микросекунды", "миллисекунды");
+    /**
+     * Метод создающий базовое окно(с пустой таблицой).
+     * Оба выпадающих списка заполняються нужными значениями и
+     * текстовое поле заполняеться стартовым значением.
+     */
+    public void fillStartWindow() {
+        typeComboBox.getItems().addAll(Constants.listTypeArray);
+        dimensionComboBox.getItems().addAll(Constants.dimensionUnitsArray);
     }
 
 
-
-
-
+    /**
+     * Метод срабатывающий при нажатии кнопки "Вывести таблицу".
+     * СОздаеться и выводиться таблица по заданым в полях и выбраным в
+     * выпадающих списках значениям.
+     */
     @FXML
     private void handleChose() {
-        size = Integer.valueOf(sizeField.getText());
-        type = typeComboBox.getSelectionModel().getSelectedItem().toString();
-        dimensionUnits = dimensionComboBox.getSelectionModel().getSelectedItem().toString();
+        Label[] labels = {label_0_0, label_1_0, label_2_0, label_3_0, label_4_0,
+                label_0_1, label_1_1, label_2_1, label_3_1, label_4_1,
+                label_0_2, label_1_2, label_2_2, label_3_2, label_4_2,
+                label_0_3, label_1_3, label_2_3, label_3_3, label_4_3
+        };
+        int size = Integer.valueOf(sizeField.getText());
+        String type = typeComboBox.getSelectionModel().getSelectedItem().toString();
+        String dimensionUnits = dimensionComboBox.getSelectionModel().getSelectedItem().toString();
         List<Object> list =  new ArrayList<>();
         if(type.equals("ArrayList")){
             list = new ArrayList<>();
@@ -103,6 +118,7 @@ public class Controller {
         else if(type.equals("MyLinkedList")){
             list = new MyLinkedList<>();
         }
+
         TimeCounter tc = new TimeCounter(list, size);
         String[][] resultMatrix = null;
         if(dimensionUnits.equals("наносекунды")){
@@ -114,21 +130,21 @@ public class Controller {
         else if(dimensionUnits.equals("миллисекунды")){
             resultMatrix = tc.getResultMatrix("ms");
         }
-        Label[] labels = {label_0_0, label_1_0, label_2_0, label_3_0, label_4_0,
-                label_0_1, label_1_1, label_2_1, label_3_1, label_4_1,
-                label_0_2, label_1_2, label_2_2, label_3_2, label_4_2,
-                label_0_3, label_1_3, label_2_3, label_3_3, label_4_3
-        };
         fillAndResizeColumn(resultMatrix, labels);
     }
 
+
+
+    /**
+     * Метод в котором происходит вычисление необходимого размера таблицы и
+     * ее заполнение
+     */
     public static void fillAndResizeColumn(String[][] resultMatrix, Label[] labels){
         int counter = 0;
         for (int i = 0; i < resultMatrix[0].length; i++) {
             Label[] labelsInColumn = new Label[resultMatrix.length];
             for (int j = 0; j < resultMatrix.length; j++, counter++) {
                 labelsInColumn[j] = labels[counter];
-                System.out.println(counter);
             }
             fillColumnOfTable(i, resultMatrix, labelsInColumn);
             int size = getLongestLengthOfStrings(labelsInColumn);
@@ -137,6 +153,9 @@ public class Controller {
     }
 
 
+    /**
+     * Метод для заполнения одной колонки из результирующего масива
+     */
     public static void fillColumnOfTable(int num, String[][] resultMatrix, Label[] labels){
         for (int i = 0; i < labels.length; i++) {
             labels[i].setText(resultMatrix[i][num]);
@@ -159,7 +178,7 @@ public class Controller {
 
 
     /**
-     * Метод для задания заданого размера всем элементам Label в строке
+     * Метод для задания заданого размера всем элементам Label в масиве Label
      */
     public static void setWidthOfLabelsInColumn(int size, Label[] labels){
         for (int i = 0; i < labels.length; i++) {
@@ -171,7 +190,7 @@ public class Controller {
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-        fillGridTable();
+        fillStartWindow();
     }
 
 }

@@ -2,25 +2,17 @@ package timecounter.hard;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import timecounter.TimeCounter;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
-
-
-
 
 
     /**
@@ -54,7 +46,7 @@ public class MainApp extends Application {
             rootLayout.setCenter(table);
 
             // Даём контроллеру доступ к главному приложению.
-            Controller controller = loader.getController();
+            TableController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
