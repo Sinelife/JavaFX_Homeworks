@@ -9,6 +9,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+
+/**
+ * Основной клас для запуска програмы
+ */
 public class MainApp extends Application {
 
     private Stage primaryStage;
@@ -35,6 +39,9 @@ public class MainApp extends Application {
     }
 
 
+    /**
+     * Метод для вывода окна с таблицей подсчета времени
+     */
     public void showTable() {
         try {
             // Загружаем сведения об адресатах.
@@ -53,6 +60,7 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
