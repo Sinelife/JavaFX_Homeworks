@@ -9,13 +9,18 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
+/**
+ * Основной клас для запуска програмы
+ */
 public class MainApp extends Application {
-
 
     public static Stage shipPlacingStage;
     public static BorderPane rootLayout;
-    public int shipNum;
+
+    /**
+     * Константа отвечающая за количество кораблей
+     */
+    public static final int SHIP_NUM = 4;
 
 
     /**
@@ -38,6 +43,9 @@ public class MainApp extends Application {
     }
 
 
+    /**
+     * Инициализирует окно для розстановки кораблей игроком.
+     */
     public void showStartWindow() {
         try {
             // Загружаем сведения об адресатах.
@@ -57,6 +65,9 @@ public class MainApp extends Application {
     }
 
 
+    /**
+     * Инициализирует поле для боя.
+     */
     public void showBattleField() {
         try {
             // Загружаем сведения об адресатах.
