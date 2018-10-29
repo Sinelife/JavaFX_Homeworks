@@ -111,7 +111,7 @@
       <Button layoutX="282.0" layoutY="566.0" mnemonicParsing="false" onAction="#handleChose" text="Вывести таблицу" />
       <Label layoutX="282.0" layoutY="473.0" prefHeight="21.0" prefWidth="125.0" text="Размер списка" />
       <Label layoutX="78.0" layoutY="473.0" prefHeight="21.0" prefWidth="131.0" text="Тип списка" />
-      <ComboBox fx:id="dimensionComboBox" layoutX="445.0" layoutY="494.0" prefWidth="150.0" />
+      <ComboBox fx:id="dimensionComboBox" layoutX="445.0" layoutY="494.0" prefHeight="31.0" prefWidth="178.0" />
       <Label layoutX="445.0" layoutY="473.0" prefHeight="21.0" prefWidth="150.0" text="Еденицы измерения" />
    </children>
 </AnchorPane>

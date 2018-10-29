@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+
+/**
+ * Клас контроллер для таблицы подсчета времени
+ */
 public class TableController {
 
     // Ссылка на главное приложение.
@@ -18,46 +22,11 @@ public class TableController {
     /**
      * Все Label это ячейки таюлицы, в которые после будут выводиться значения
      */
-    @FXML
-    Label label_0_0;
-    @FXML
-    Label label_0_1;
-    @FXML
-    Label label_0_2;
-    @FXML
-    Label label_0_3;
-    @FXML
-    Label label_1_0;
-    @FXML
-    Label label_1_1;
-    @FXML
-    Label label_1_2;
-    @FXML
-    Label label_1_3;
-    @FXML
-    Label label_2_0;
-    @FXML
-    Label label_2_1;
-    @FXML
-    Label label_2_2;
-    @FXML
-    Label label_2_3;
-    @FXML
-    Label label_3_0;
-    @FXML
-    Label label_3_1;
-    @FXML
-    Label label_3_2;
-    @FXML
-    Label label_3_3;
-    @FXML
-    Label label_4_0;
-    @FXML
-    Label label_4_1;
-    @FXML
-    Label label_4_2;
-    @FXML
-    Label label_4_3;
+    @FXML Label label_0_0; @FXML Label label_0_1; @FXML Label label_0_2; @FXML Label label_0_3;
+    @FXML Label label_1_0; @FXML Label label_1_1; @FXML Label label_1_2; @FXML Label label_1_3;
+    @FXML Label label_2_0; @FXML Label label_2_1; @FXML Label label_2_2; @FXML Label label_2_3;
+    @FXML Label label_3_0; @FXML Label label_3_1; @FXML Label label_3_2; @FXML Label label_3_3;
+    @FXML Label label_4_0; @FXML Label label_4_1; @FXML Label label_4_2; @FXML Label label_4_3;
 
 
     /**
