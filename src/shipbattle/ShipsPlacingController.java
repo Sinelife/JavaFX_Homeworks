@@ -4,9 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import timecounter.easy.Main;
+import timecounter.Methods;
+
 
 public class ShipsPlacingController {
 
@@ -43,6 +43,7 @@ public class ShipsPlacingController {
             }
             if(shipNum == 0){
                 rootLayout.setCenter(null);
+                mainApp.showBattleField();
             }
         }
     };
@@ -62,6 +63,8 @@ public class ShipsPlacingController {
 
     public void disableButton(Button button){
         button.setStyle("-fx-background-color: #00FF33; color: #00FF33");
+        String s = button.getText();
+        Values.listOfYourShipsCoordinates.add(s);
         button.setDisable(true);
     }
 

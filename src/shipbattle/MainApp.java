@@ -13,7 +13,7 @@ import java.io.IOException;
 public class MainApp extends Application {
 
 
-    private Stage primaryStage;
+    public static Stage shipPlacingStage;
     public static BorderPane rootLayout;
     public int shipNum;
 
@@ -30,8 +30,8 @@ public class MainApp extends Application {
 
             // Отображаем сцену, содержащую корневой макет.
             Scene scene = new Scene(rootLayout);
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            shipPlacingStage.setScene(scene);
+            shipPlacingStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -51,10 +51,25 @@ public class MainApp extends Application {
             // Даём контроллеру доступ к главному приложению.
             ShipsPlacingController controller = loader.getController();
             controller.setMainApp(this);
-            System.out.println(controller.getShipNum());
-            if(controller.getShipNum() == 0){
-                rootLayout.setCenter(null);
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void showBattleField() {
+        try {
+            // Загружаем сведения об адресатах.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("BattleField.fxml"));
+            AnchorPane startField = (AnchorPane) loader.load();
+
+            // Помещаем сведения об адресатах в центр корневого макета.
+            rootLayout.setCenter(startField);
+
+            // Даём контроллеру доступ к главному приложению.
+            BattleFieldController controller = loader.getController();
+            controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,11 +78,10 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("ShipBattleApp");
+        this.shipPlacingStage = primaryStage;
+        this.shipPlacingStage.setTitle("ShipBattleApp");
         initRootLayout();
         showStartWindow();
-
     }
 
 
