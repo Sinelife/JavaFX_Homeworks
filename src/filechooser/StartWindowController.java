@@ -1,11 +1,8 @@
 package filechooser;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-
 
 import javax.swing.*;
 import java.io.*;
@@ -14,83 +11,80 @@ public class StartWindowController {
 
     Main main;
 
+    @FXML Button choseWhatDirectoryCopyButton;
+
     @FXML Button choseWhatCopyButton;
 
     @FXML Button choseWhereCopyButton;
 
     @FXML Button copyButton;
 
-    @FXML Button copyInNewFileButton;
-
-    @FXML Button clear;
-
     @FXML TextField whatTextField;
 
     @FXML TextField whereTextField;
 
-    JFileChooser fileChooser;
+    public static int fileCounter;
 
 
 
 
-
-
-
-    public void onClickWhatCopy() throws IOException {
-        fileChooser = new JFileChooser();
-        choseWhatCopyButton.setOnAction(e -> fileChooser.showOpenDialog(null));
+    /**
+     * Метод срабатывающий при нажатии кнопки выбора директории, которая будет
+     * копироваться. Метод вызывает FileChooser и после выбора директории
+     * записывает в соответсвуюшее поле путь к этой директории
+     */
+    public void onClickWhatDirectoryCopy() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooser.setAcceptAllFileFilterUsed(false);
         fileChooser.showOpenDialog(null);
         String pathOfWhatCopyFile = fileChooser.getSelectedFile().toString();
         whatTextField.setText(pathOfWhatCopyFile);
     }
 
 
-    public void onClickWhereCopy() throws IOException {
-        fileChooser = new JFileChooser();
-        choseWhereCopyButton.setOnAction(e -> fileChooser.showOpenDialog(null));
+    /**
+     * Метод срабатывающий при нажатии кнопки выбора файла, который будет
+     * копироваться. Метод вызывает FileChooser и после выбора файла
+     * записывает в соответсвуюшее поле путь к этому файлу
+     */
+    public void onClickWhatFileCopy() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.showOpenDialog(null);
+        String pathOfWhatCopyFile = fileChooser.getSelectedFile().toString();
+        whatTextField.setText(pathOfWhatCopyFile);
+    }
+
+
+    /**
+     * Метод срабатывающий при нажатии кнопки выбора директории, в которую будут
+     * копироваться данные. Метод вызывает FileChooser и после выбора директории
+     * записывает в соответсвуюшее поле путь к этой директории
+     */
+    public void onClickWhereCopy() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooser.setAcceptAllFileFilterUsed(false);
         fileChooser.showOpenDialog(null);
         String pathOfWhereCopyFile = fileChooser.getSelectedFile().toString();
         whereTextField.setText(pathOfWhereCopyFile);
     }
 
 
+
+    /**
+     * Метод копирующий файл или директорию в директорию(пути метод берет из
+     * текстовых полей)
+     */
     public void onClickCopy() throws FileNotFoundException {
         File fileFrom = new File(whatTextField.getText());
         File fileTo = new File(whereTextField.getText());
-        InputStream inputStream = new FileInputStream(fileFrom);
-        OutputStream outputStream = new FileOutputStream(fileTo);
-        copy(inputStream, outputStream);
+        fileCounter = 0;
+        //System.out.println(fileFrom.length());
+        Methods.copy(fileFrom, fileTo);
+        System.out.println("Количество скопированых файлов - " + fileCounter + "\n\n\n\n\n");
     }
 
-    public void onClickCopyInNewFile() throws FileNotFoundException {
-        File fileFrom = new File(whatTextField.getText());
-        File fileTo = new File(whereTextField.getText() + "_copy");
-        InputStream inputStream = new FileInputStream(fileFrom);
-        OutputStream outputStream = new FileOutputStream(fileTo);
-        copy(inputStream, outputStream);
-    }
-
-
-    public void clear(){
-       main.showStartWindow();
-    }
-
-
-    static void copy(InputStream inputStream, OutputStream outputStream) {
-        try {
-            while (inputStream.available() > 0) {
-                int readedByte = inputStream.read();
-                outputStream.write(readedByte);
-            }
-            inputStream.close();
-            outputStream.flush();
-            outputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
     public void setMainApp(Main mainApp) {
