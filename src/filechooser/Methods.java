@@ -64,7 +64,7 @@ public class Methods {
                 outputStream.write(readedByte);
                 counter++;
                 if(counter % 1024 == 0) {
-                    //System.out.println(counter / 1024 + "КБ");
+                    System.out.println(counter / 1024 + "КБ");
                 }
             }
             inputStream.close();

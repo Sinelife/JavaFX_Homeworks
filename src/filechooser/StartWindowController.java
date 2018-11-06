@@ -13,8 +13,6 @@ public class StartWindowController {
 
     @FXML Button choseWhatDirectoryCopyButton;
 
-    @FXML Button choseWhatCopyButton;
-
     @FXML Button choseWhereCopyButton;
 
     @FXML Button copyButton;
@@ -35,21 +33,8 @@ public class StartWindowController {
      */
     public void onClickWhatDirectoryCopy() {
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         fileChooser.setAcceptAllFileFilterUsed(false);
-        fileChooser.showOpenDialog(null);
-        String pathOfWhatCopyFile = fileChooser.getSelectedFile().toString();
-        whatTextField.setText(pathOfWhatCopyFile);
-    }
-
-
-    /**
-     * Метод срабатывающий при нажатии кнопки выбора файла, который будет
-     * копироваться. Метод вызывает FileChooser и после выбора файла
-     * записывает в соответсвуюшее поле путь к этому файлу
-     */
-    public void onClickWhatFileCopy() {
-        JFileChooser fileChooser = new JFileChooser();
         fileChooser.showOpenDialog(null);
         String pathOfWhatCopyFile = fileChooser.getSelectedFile().toString();
         whatTextField.setText(pathOfWhatCopyFile);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.control.*?>
@@ -7,7 +8,6 @@
 
 <AnchorPane prefHeight="457.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="filechooser.StartWindowController">
     <children>
-        <Button fx:id="choseWhatCopyButton" layoutX="104.0" layoutY="24.0" mnemonicParsing="false" onAction="#onClickWhatFileCopy" prefHeight="31.0" prefWidth="128.0" text="Выбор файла" />
         <Button fx:id="choseWhereCopyButton" layoutX="180.0" layoutY="167.0" mnemonicParsing="false" onAction="#onClickWhereCopy" prefHeight="31.0" prefWidth="292.0" text="Выбор папки куда копировать" />
         <TextField fx:id="whatTextField" editable="false" layoutX="53.0" layoutY="79.0" prefHeight="31.0" prefWidth="569.0">
             <effect>
@@ -24,6 +24,6 @@
             <font>
                 <Font name="Cambria" size="24.0" />
             </font></Button>
-        <Button fx:id="choseWhatDirectoryCopyButton" layoutX="424.0" layoutY="24.0" mnemonicParsing="false" onAction="#onClickWhatDirectoryCopy" prefHeight="31.0" prefWidth="128.0" text="Выбор папки" />
+        <Button fx:id="choseWhatDirectoryCopyButton" layoutX="180.0" layoutY="24.0" mnemonicParsing="false" onAction="#onClickWhatDirectoryCopy" prefHeight="31.0" prefWidth="292.0" text="Выбор файла для копирования" />
     </children>
 </AnchorPane>
