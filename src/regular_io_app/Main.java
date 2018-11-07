@@ -3,6 +3,8 @@ package regular_io_app;
 import sun.awt.image.ImageWatched;
 
 import java.io.*;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,17 +32,20 @@ public class Main {
         /**5)подсчитать количество повторений слов*/
         text = MyString.trim(text, true);
         text = text.toLowerCase();
-        String[] words = getWordArayFromString(text);
-        String[][] uniquewordNumberList = getUniqueElementsNumber(words);
-        uniquewordNumberList = bubbleSort(uniquewordNumberList);
-        for (int i = 0; i < uniquewordNumberList.length; i++) {
-            System.out.println(uniquewordNumberList[i][0] + " - " + uniquewordNumberList[i][1] + " раз");
+        System.out.println(text);
+        String[] allWords = getWordArayFromString(text);
+        List<WordNode> uniquewordNumberList = getUniqueElementsNumber(allWords);
+        uniquewordNumberList = sort(uniquewordNumberList);
+        for(WordNode node : uniquewordNumberList){
+            System.out.println(node);
         }
 
 
         /**6)подсчитать общее количество слов*/
         System.out.println("Общее количество строк - " + getWordNum(text));
-        System.out.println("Число уикальных строк - " + uniquewordNumberList.length);
+
+        /**7)подсчитать количество униальных слов*/
+        System.out.println("Число уикальных строк - " + uniquewordNumberList.size());
 
         //System.out.println(text);
 
@@ -139,7 +144,7 @@ public class Main {
     /**
      * 5)Находит уникальные слова и количество их повторений
      */
-    public static String[][] getUniqueElementsNumber(String[] array) {
+    public static List<WordNode> getUniqueElementsNumber(String[] array) {
         String[] uniqueElements = new String[array.length];
         uniqueElements[0] = array[0];
         int counter = 0;
@@ -154,17 +159,14 @@ public class Main {
                 }
             }
         }
-        System.out.println("COUNTER" + counter);
         counter++;
-        String[][] result = new String[counter][2];
+        List<WordNode> result = new LinkedList<>();
         for (int i = 0; i < counter; i++) {
-            result[i][0] = uniqueElements[i];
-            result[i][1] = String.valueOf(0);
+            WordNode node = new WordNode(uniqueElements[i],0);
+            result.add(node);
             for (int j = 0; j < array.length; j++) {
-                if (uniqueElements[i].equals(array[j])) {
-                    int temp = Integer.valueOf(result[i][1]);
-                    temp++;
-                    result[i][1] = String.valueOf(temp);
+                if (node.getWord().equals(array[j])) {
+                    node.incrementNumber();
                 }
             }
         }
@@ -210,21 +212,49 @@ public class Main {
     }
 
 
-    static String[][] bubbleSort(String[][] array) {
-        String[] temp;
-        System.out.println(array.length + "TYFJJJJJJJJJJJJJJJJ");
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 1; j < array.length - i; j++) {
-                if (Integer.valueOf(array[j - 1][1]) > Integer.valueOf(array[j][1])) {
-                    temp = array[j - 1];
-                    array[j - 1] = array[j];
-                    array[j] = temp;
-                }
-
+    static List<WordNode> sort(List<WordNode> list) {
+        Comparator<WordNode> comparator = new Comparator<WordNode>() {
+            @Override
+            public int compare(WordNode o1, WordNode o2) {
+                return o2.getNumber() - o1.getNumber();
             }
-        }
-        return array;
+        };
+        Collections.sort(list,comparator);
+        return list;
     }
 
+
+
+
+    private static class WordNode {
+        String word;
+        int number;
+
+        WordNode(String word, int number){
+            this.word = word;
+            this.number = number;
+        }
+
+        public String getWord() {
+            return word;
+        }
+
+        public void setWord(String word) {
+            this.word = word;
+        }
+
+        public int getNumber() {
+            return number;
+        }
+
+        public void incrementNumber() {
+            this.number++;
+        }
+
+        @Override
+        public String toString() {
+            return word + " - " + number + " раз";
+        }
+    }
 
 }

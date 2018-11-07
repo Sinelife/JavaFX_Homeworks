@@ -44,11 +44,11 @@ public class MyString {
     private static String trim(String str) {
         char[] chars = str.toCharArray();
         int newStart = 0;
-        while (newStart < chars.length && chars[newStart] == ' ') {
+        while (newStart < chars.length && (chars[newStart] == ' ' || chars[newStart] == '\n')) {
             newStart++;
         }
         int newEnd = chars.length - 1;
-        while (newStart < newEnd && chars[newEnd] == ' ') {
+        while (newStart < newEnd && chars[newEnd] == ' ' || chars[newStart] == '\n') {
             newEnd--;
         }
         return subString(str, newStart, newEnd);
