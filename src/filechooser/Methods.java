@@ -4,13 +4,22 @@ import java.io.*;
 
 public class Methods {
 
+    static long currentFileLength;
+    private static int percentNumber = 1;
+    private static int counter = 0;
+
     /**
      * Общий метод для копирования любого файла или директории
      */
     public static void copy(File file, File where) throws FileNotFoundException {
         if (file.isDirectory()) {
+            System.out.println(file.length());
+            countDirectorySize(file);
+            //System.out.println(currentFileLength);
             copyDirectory(file, where, true);
         } else {
+            currentFileLength = file.length();
+            //System.out.println(currentFileLength);
             copyFile(file, where);
         }
     }
@@ -54,17 +63,21 @@ public class Methods {
     }
 
 
-    /**Метод непосредственого побайтового перезаписывания данных*/
-    static void copyFileByBytes(InputStream inputStream, OutputStream outputStream) {
+    /**
+     * Метод непосредственого побайтового перезаписывания данных
+     */
+    public static void copyFileByBytes(InputStream inputStream, OutputStream outputStream) {
         try {
             StartWindowController.fileCounter++;
-            int counter = 0;
             while (inputStream.available() > 0) {
                 int readedByte = inputStream.read();
                 outputStream.write(readedByte);
                 counter++;
-                if(counter % 1024 == 0) {
-                    System.out.println(counter / 1024 + "КБ");
+                //System.out.println(currentFileLength);
+                if(counter  == currentFileLength * percentNumber / 100) {
+                    StartWindowController.alert.setTitle(percentNumber + "%(Общий размер " + Methods.getSizeInCorrectDimension(currentFileLength) + ")");
+                    //System.out.println(percentNumber + "%");
+                    percentNumber++;
                 }
             }
             inputStream.close();
@@ -75,5 +88,32 @@ public class Methods {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+
+    /**
+     * Метод для подсчета размера папки
+     */
+    public static void countDirectorySize(File directory){
+        File[] files = directory.listFiles();
+        for (File file : files) {
+            if (file.isDirectory()) {
+                countDirectorySize(file);
+            } else {
+                currentFileLength += file.length();
+            }
+        }
+    }
+
+
+    public static String getSizeInCorrectDimension(long currentFileLength){
+        if(currentFileLength < 1024){
+            return currentFileLength + "б";
+        }
+        if(currentFileLength / 1024 < 1024){
+            return currentFileLength / 1024 + "Кб";
+        }
+        return currentFileLength /(1024 * 1024) + "Мб";
     }
 }

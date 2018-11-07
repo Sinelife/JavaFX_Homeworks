@@ -1,11 +1,16 @@
 package filechooser;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.io.*;
+import java.util.concurrent.TimeUnit;
 
 public class StartWindowController {
 
@@ -24,7 +29,7 @@ public class StartWindowController {
     public static int fileCounter;
 
 
-
+    static Alert alert;
 
     /**
      * Метод срабатывающий при нажатии кнопки выбора директории, которая будет
@@ -65,8 +70,22 @@ public class StartWindowController {
         File fileFrom = new File(whatTextField.getText());
         File fileTo = new File(whereTextField.getText());
         fileCounter = 0;
-        //System.out.println(fileFrom.length());
+        long size = 0;
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        if(fileFrom.isDirectory()){
+            Methods.countDirectorySize(fileFrom);
+            size = Methods.currentFileLength;
+            alert.setTitle("0%(Общий размер" + Methods.getSizeInCorrectDimension(size) + ")");
+            Methods.currentFileLength = 0;
+        }
+        else {
+            size = fileFrom.length();
+            alert.setTitle("0%(Общий размер" + Methods.getSizeInCorrectDimension(size) + ")");
+        }
+        alert.setHeaderText("");
+        alert.show();
         Methods.copy(fileFrom, fileTo);
+        alert.setTitle("Копирование закончено(Общий размер" + Methods.getSizeInCorrectDimension(size) + ")");
         System.out.println("Количество скопированых файлов - " + fileCounter + "\n\n\n\n\n");
     }
 

@@ -17,7 +17,7 @@
             <effect>
                 <Reflection />
             </effect></TextField>
-        <Button fx:id="copyButton" layoutX="228.0" layoutY="316.0" mnemonicParsing="false" onAction="#onClickCopy" prefHeight="52.0" prefWidth="196.0" text="Копировать">
+        <Button fx:id="copyButton" layoutX="288.0" layoutY="301.0" mnemonicParsing="false" onAction="#onClickCopy" prefHeight="52.0" prefWidth="196.0" text="Копировать">
             <effect>
                 <SepiaTone level="0.62" />
             </effect>
