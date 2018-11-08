@@ -42,6 +42,9 @@ public class MyString {
      * trim - метод, который возвращает строку без пробелов в начале и конце строки
      */
     private static String trim(String str) {
+        if(str.isEmpty()){
+            return "";
+        }
         char[] chars = str.toCharArray();
         int newStart = 0;
         while (newStart < chars.length && (chars[newStart] == ' ' || chars[newStart] == '\n')) {
@@ -66,11 +69,17 @@ public class MyString {
         str = trim(str);
         String result = "";
         char[] chars = str.toCharArray();
-        for (int i = 0; i < chars.length - 2; i++) {
+        for (int i = 0; i < chars.length; i++) {
             result += chars[i];
             if (chars[i] == ' ' || chars[i] == '\n') {
                 while (chars[i] == ' ' || chars[i] == '\n') {
+                    if(i == chars.length - 1){
+                        break;
+                    }
                     i++;
+                }
+                if(i == chars.length - 1){
+                    break;
                 }
                 i--;
             }

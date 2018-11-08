@@ -9,10 +9,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class Main {
-    public static void main(String[] args) throws IOException {
-        File file = new File("C:\\Users\\Ярослав\\IdeaProjects\\JavaFX_Homeworks\\src\\regular_io_app\\text");
+public class TextWork {
 
+
+    /**
+     * Метод, который обрабатывает строку(удаления всех не буквеных символов,
+     * отбрасывания слов меньше трех букв, удаления слов из файла исключения и
+     * удаления лишних пробелов) и возвращает обработаную строку
+     */
+    public static String getCorrectText(File file, File exceptionFile) throws IOException {
         /**1)считать файл*/
         String text = getStringFromFile(file);
 
@@ -25,30 +30,35 @@ public class Main {
         text = getTextOnlyWithWordsBiggerThanTwo(text);
 
 
-        /**4)отбросить слова, которые определены в отдельном файле(слова-исключения)*/
-        text = getTextWithOutExceptionWords(text);
 
-
-        /**5)подсчитать количество повторений слов*/
         text = MyString.trim(text, true);
+        text = text.replaceAll("\n"," ");
         text = text.toLowerCase();
-        System.out.println(text);
-        String[] allWords = getWordArayFromString(text);
+
+        /**4)отбросить слова, которые определены в отдельном файле(слова-исключения)*/
+        text = getTextWithOutExceptionWords(text,exceptionFile);
+
+
+        return text;
+    }
+
+
+    /**
+     * Метод, который возвращает строку, в которую правильно записаны
+     * обькты WordNode
+     */
+    public static String getStringOfWordsAdNumList(String text){
+        if(text.isEmpty()){
+            return null;
+        }
+        String result = "";
+        String[] allWords = getWordArrayFromString(text);
         List<WordNode> uniquewordNumberList = getUniqueElementsNumber(allWords);
         uniquewordNumberList = sort(uniquewordNumberList);
         for(WordNode node : uniquewordNumberList){
-            System.out.println(node);
+            result += node + ",\n";
         }
-
-
-        /**6)подсчитать общее количество слов*/
-        System.out.println("Общее количество строк - " + getWordNum(text));
-
-        /**7)подсчитать количество униальных слов*/
-        System.out.println("Число уикальных строк - " + uniquewordNumberList.size());
-
-        //System.out.println(text);
-
+        return result;
     }
 
 
@@ -84,67 +94,58 @@ public class Main {
 
 
     /**
-     * 4)Отбросить все слова, которые находяться в файле с исключениями
+     * 4)Метод, для удаления из строки всех слов которые находяться в файле с
+     * исключениями
      */
-    public static String getTextWithOutExceptionWords(String text) throws IOException {
-        File file = new File("C:\\Users\\Ярослав\\IdeaProjects\\JavaFX_Homeworks\\src\\regular_io_app\\fileOfExceptions");
-        List<String> exceptionWordList = getStringListFromFile(file);
+    public static String getTextWithOutExceptionWords(String text, File exceptionFile) throws IOException {
+        List<String> exceptionWordList = getStringListFromFile(exceptionFile);
+        if(exceptionWordList.isEmpty()){
+            return text;
+        }
         for (String word : exceptionWordList) {
+            System.out.println(word);
             text = text.replaceAll(word, "");
+            text = MyString.trim(text,true);
         }
         return text;
     }
 
     /**
-     * Прочитать посимвольно файл и записать его по словам в список строк(слов)
+     * Метод,читает чтоб посимвольно прочитать файл и записать его по
+     * словам в список строк(слов)
      */
     public static List<String> getStringListFromFile(File file) throws IOException {
-        Reader reader = new FileReader(file);
+        String text = getStringFromFile(file);
+        text = getTextOnlyWithLetters(text);
+        text = getTextOnlyWithWordsBiggerThanTwo(text);
+        text = MyString.trim(text, true);
+        text = text.replaceAll("\n"," ");
+        text = text.toLowerCase();
         List<String> wordList = new LinkedList<>();
         String word = "";
-        int c;
-        while ((c = reader.read()) != -1) {
-            if ((char) c == ',') {
+        char[] chars = text.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            if(chars[i] == ' '){
                 wordList.add(word);
                 word = "";
-            } else {
-                word += (char) c;
+            }
+            else{
+                word += chars[i];
             }
         }
         return wordList;
     }
 
-//    /**
-//     * Прочитать посимвольно файл и записать его по словам в масив строк(слов)
-//     */
-//    public static String[] getStringArrayFromFile(File file) throws IOException {
-//        Reader reader = new FileReader(file);
-//        List<String> wordList = new LinkedList<>();
-//        String word = "";
-//        int c;
-//        while ((c = reader.read()) != -1) {
-//            if((char)c == ','){
-//                wordList.add(word);
-//                word = "";
-//            }
-//            else {
-//                word += (char) c;
-//            }
-//        }
-//        String[] wordArray = new String[wordList.size()];
-//        int i = 0;
-//        for(String s : wordList){
-//            wordArray[i] = s;
-//            i++;
-//        }
-//        return wordArray;
-//    }
 
 
     /**
-     * 5)Находит уникальные слова и количество их повторений
+     * 5)Метод, который получает из масива строк-слов список, состоящий из элкментов
+     * WordNode(в которых находяться уникальные слова и частота их встреч в маисве)
      */
     public static List<WordNode> getUniqueElementsNumber(String[] array) {
+        if(array.length == 0){
+            return null;
+        }
         String[] uniqueElements = new String[array.length];
         uniqueElements[0] = array[0];
         int counter = 0;
@@ -176,7 +177,7 @@ public class Main {
 
 
     /**
-     * 6)Подсчитывает общее количество слов в строке
+     * 6)Метод, который подсчитывает общее количество слов в строке
      */
     public static int getWordNum(String text) {
         char[] chars = text.toCharArray();
@@ -189,7 +190,33 @@ public class Main {
         return counter;
     }
 
-    public static String[] getWordArayFromString(String text) {
+
+    /**
+     * 7)Метод, который подсчитывает количество уникальных слов в строке
+     */
+    public static int getUniqueWordNum(String text) {
+        char[] chars = text.toCharArray();
+        List uniqueWordList = new LinkedList();
+        String word = "";
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == ' ') {
+                if(!uniqueWordList.contains(word)) {
+                    uniqueWordList.add(word);
+                }
+                word = "";
+            }
+            word += chars[i];
+        }
+        //System.out.println(uniqueWordList.size());
+        return uniqueWordList.size();
+    }
+
+
+
+    /**
+     * Метод для перевода строки текста в масив строк-слов
+     */
+    public static String[] getWordArrayFromString(String text) {
         char[] chars = text.toCharArray();
 
         List<String> list = new LinkedList<>();
@@ -212,6 +239,9 @@ public class Main {
     }
 
 
+    /**
+     * Метод для сортировки переданого списка, состоящего из WordNode
+     */
     static List<WordNode> sort(List<WordNode> list) {
         Comparator<WordNode> comparator = new Comparator<WordNode>() {
             @Override
@@ -224,8 +254,31 @@ public class Main {
     }
 
 
+    /**
+     * Метод, который копирует строку в файл
+     */
+    public static void copyToFile(String text, String fileName) throws IOException {
+        Writer writer = new FileWriter(fileName,false);
+        char[] chars = text.toCharArray();
+        for(int i = 0; i < chars.length; i++){
+            if(chars[i] == ','){
+                String str = "\r\n";
+                writer.write(str);
+            }
+            else {
+                writer.append(chars[i]);
+            }
+        }
+        writer.flush();
+
+    }
 
 
+
+    /**
+     * Клас представляющий ноду, которая хранит в себе значение слова и количество
+     * встреч этого слова в файле
+     */
     private static class WordNode {
         String word;
         int number;
