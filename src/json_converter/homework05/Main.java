@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.Writer;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class Main {
@@ -34,11 +36,11 @@ public class Main {
             String temp = toJson(object);
             result += temp.substring(1, temp.length() - 2);
             if(counter != elements.length - 1){
-                result += ",\n";
+                result += ",\r\n";
             }
             counter++;
         }
-        result += "\n]";
+        result += "\r\n]";
         return result;
     }
 
@@ -49,7 +51,7 @@ public class Main {
      * Вызывает рекурсивный метод, в котором и происходит перевод объекта.
      */
     public static String toJson(Object elem) throws IllegalAccessException {
-        return "[" + toJson(elem, 1) + "\n]";
+        return "[" + toJson(elem, 1) + "\r\n]";
     }
 
 
@@ -73,7 +75,7 @@ public class Main {
         String result = "";
         Class aClass = elem.getClass();
         if (aClass.isAnnotationPresent(JsonEntity.class)) {
-            result += "\n" + getSpaceNum(num) + "{" + "\n";
+            result += "\r\n" + getSpaceNum(num) + "{" + "\r\n";
             Field[] fields = aClass.getDeclaredFields();
             int counter = 0;
             for(Field field : fields) {
@@ -87,10 +89,10 @@ public class Main {
                     }
 
                     if(counter != getNumOfFieldsWithAnnotation(fields, JsonField.class) - 1){
-                        result += ",\n";
+                        result += ",\r\n";
                     }
                     else{
-                        result += "\n";
+                        result += "\r\n";
                     }
                     counter++;
                 }
@@ -209,14 +211,12 @@ public class Main {
     public static void copyToFile(String text, String fileName) throws IOException {
         Writer writer = new FileWriter(fileName,false);
         char[] chars = text.toCharArray();
+        List<java.lang.Character> symbolsForMoveToNextLine = new LinkedList<>();
+        symbolsForMoveToNextLine.add(',');
+        symbolsForMoveToNextLine.add('[');
+        symbolsForMoveToNextLine.add('{');
         for(int i = 0; i < chars.length; i++){
-            if(chars[i] == ','){
-                String str = "\r\n";
-                writer.write(str);
-            }
-            else {
-                writer.append(chars[i]);
-            }
+            writer.append(chars[i]);
         }
         writer.flush();
     }
