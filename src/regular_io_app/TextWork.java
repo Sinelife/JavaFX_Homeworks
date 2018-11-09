@@ -15,6 +15,7 @@ public class TextWork {
         List<String> mainList = getWordListFromFile(file);
         List<String> exceptionList = getWordListFromFile(exceptionFile);
         for(String word : exceptionList){
+            System.out.println(word);
             while(mainList.contains(word)) {
                 mainList.remove(word);
             }
@@ -118,14 +119,20 @@ public class TextWork {
         String text = getStringFromFile(file);
         text = getTextOnlyWithLetters(text);
         text = getTextOnlyWithWordsBiggerThanTwo(text);
-        text = MyString.trim(text, true);
+        text = text.trim();
+        text = text.replaceAll("\\s{2,}"," ");
         text = text.replaceAll("\n"," ");
-        text = text.toLowerCase();
+        text = text.toLowerCase() + " ab";
+        System.out.println(text);
         List<String> wordList = new LinkedList<>();
         String word = "";
         char[] chars = text.toCharArray();
         for (int i = 0; i < chars.length; i++) {
-            if(chars[i] == ' '){
+            if(i == chars.length - 1){
+                wordList.add(word);
+                word = "";
+            }
+            else if(chars[i] == ' '){
                 wordList.add(word);
                 word = "";
             }
