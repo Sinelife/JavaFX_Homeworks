@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="784.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="json_converter.MainWindowController">
+   <children>
+      <Button fx:id="outputButton" layoutX="56.0" layoutY="29.0" mnemonicParsing="false" onAction="#OnClickOutput" text="Вывести в поле" />
+      <TextArea fx:id="textArea" editable="false" layoutX="56.0" layoutY="91.0" prefHeight="412.0" prefWidth="408.0" />
+      <Button fx:id="copyButton" layoutX="331.0" layoutY="29.0" mnemonicParsing="false" onAction="#OnClickCopy" text="Записать в файл" />
+   </children>
+</AnchorPane>
