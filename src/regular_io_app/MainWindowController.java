@@ -30,7 +30,6 @@ public class MainWindowController {
     @FXML Button copyWordNumberListToFileButton;
 
 
-
     /**
      * Метод, срабатывающий при нажатии кнопки выбора файла
      */
@@ -67,12 +66,11 @@ public class MainWindowController {
     public void onClickCount() throws IOException {
         File file = new File(fileNameLabel.getText());
         File exceptionFile = new File(exceptionFileNameLabel.getText());
-        String text = TextWork.getCorrectText(file, exceptionFile);
-        System.out.println("\n\n\n\n" + text);
-        String wordNumList = TextWork.getStringOfWordsAdNumList(text);
-        textArea.setText(wordNumList);
-        allWordsNumberLabel.setText("Количество слов - " + TextWork.getWordNum(text));
-        uniqueWordsNumberLabel.setText("Количество уникальных слов - " + TextWork.getUniqueWordNum(text));
+        List<String> list = TextWork.getWordList(file, exceptionFile);
+        String result = TextWork.convertWordNodeListToString(list);
+        textArea.setText(result);
+        allWordsNumberLabel.setText("Количество слов - " + TextWork.getWordNum(list));
+        uniqueWordsNumberLabel.setText("Количество уникальных слов - " + TextWork.getUniqueWordNum(list));
     }
 
 
