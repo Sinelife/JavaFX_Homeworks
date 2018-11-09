@@ -10,16 +10,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class Main {
+public class JsonConverter {
     public static void main(String[] args) throws IllegalAccessException {
-        Jewel jewel = new Jewel("кольцо", "защита");
-        Weapon[] weapons = {new Weapon("нож", 30), new Weapon("кинжал", 50), new Weapon("лук", 30)};
-        Character character = new Character("Элейн","ельф",1000, true, "Элрис", weapons, jewel);
-        System.out.println(toJson(character));
-
-
-        Weapon[] allWeapons = {new Weapon("нож", 30), new Weapon("кинжал", 50), new Weapon("лук", 30)};
-        System.out.println(toJson(allWeapons));
+//        Jewel jewel = new Jewel("кольцо", "защита");
+//        Weapon[] weapons = {new Weapon("нож", 30), new Weapon("кинжал", 50), new Weapon("лук", 30)};
+//        Character character = new Character("Элейн","ельф",1000, true, "Элрис", weapons, jewel);
+//        System.out.println(toJson(character));
+//
+//
+//        Weapon[] allWeapons = {new Weapon("нож", 30), new Weapon("кинжал", 50), new Weapon("лук", 30)};
+//        System.out.println(toJson(allWeapons));
     }
 
 

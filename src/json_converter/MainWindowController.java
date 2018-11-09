@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import json_converter.homework05.Character;
 import json_converter.homework05.Jewel;
-import json_converter.homework05.Main;
+import json_converter.homework05.JsonConverter;
 import json_converter.homework05.Weapon;
 
 import javax.swing.*;
@@ -24,9 +24,13 @@ public class MainWindowController {
 
     public void OnClickOutput() throws IllegalAccessException {
         Jewel jewel = new Jewel("кольцо", "защита");
+        Jewel jewel2 = new Jewel("амулет", "регенерация");
         Weapon[] weapons = {new Weapon("нож", 30), new Weapon("кинжал", 50), new Weapon("лук", 30)};
-        Character character = new Character("Элейн","ельф",1000, true, "Элрис", weapons, jewel);
-        result = Main.toJson(character);
+        Weapon[] weapons2 = {new Weapon("меч", 200), new Weapon("перчатка", 150)};
+        Character[] characters = {new Character("Элейн","ельф",1000, true, "Элрис", weapons, jewel),
+                                new Character("Кахат","демон",9999, false, "Молох", weapons2, jewel2)};
+
+        result = JsonConverter.toJson(characters);
         textArea.setText(result);
     }
 
@@ -37,7 +41,7 @@ public class MainWindowController {
         fileChooser.setAcceptAllFileFilterUsed(false);
         fileChooser.showOpenDialog(null);
         String pathOfWhereCopyFile = fileChooser.getSelectedFile().toString();
-        Main.copyToFile(result, pathOfWhereCopyFile + "\\My.json");
+        JsonConverter.copyToFile(result, pathOfWhereCopyFile + "\\My.json");
 
     }
 }
