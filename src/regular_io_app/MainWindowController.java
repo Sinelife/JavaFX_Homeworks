@@ -66,11 +66,11 @@ public class MainWindowController {
     public void onClickCount() throws IOException {
         File file = new File(fileNameLabel.getText());
         File exceptionFile = new File(exceptionFileNameLabel.getText());
-        List<String> list = TextWork.getWordList(file, exceptionFile);
-        String result = TextWork.convertWordNodeListToString(list);
+        List<String> list = StreamTextWork.getFilteredWordList(file, exceptionFile);
+        String result = StreamTextWork.convertWordNodeListToString(list);
         textArea.setText(result);
-        allWordsNumberLabel.setText("Количество слов - " + TextWork.getWordNum(list));
-        uniqueWordsNumberLabel.setText("Количество уникальных слов - " + TextWork.getUniqueWordNum(list));
+        allWordsNumberLabel.setText("Количество слов - " + StreamTextWork.getWordNum(list));
+        uniqueWordsNumberLabel.setText("Количество уникальных слов - " + StreamTextWork.getUniqueWordNum(list));
     }
 
 
@@ -85,6 +85,6 @@ public class MainWindowController {
         fileChooser.setAcceptAllFileFilterUsed(false);
         fileChooser.showOpenDialog(null);
         String pathOfWhereCopyFile = fileChooser.getSelectedFile().toString();
-        TextWork.copyToFile(textArea.getText(), pathOfWhereCopyFile + "\\WordNum.txt");
+        StreamTextWork.copyToFile(textArea.getText(), pathOfWhereCopyFile + "\\WordNum.txt");
     }
 }
