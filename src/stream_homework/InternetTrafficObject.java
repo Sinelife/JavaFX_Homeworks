@@ -3,7 +3,7 @@ package stream_homework;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class InternetTraficObject {
+public class InternetTrafficObject {
 
     private Date date;
     private double networkInput;
@@ -12,11 +12,10 @@ public class InternetTraficObject {
     private double uaixOutput;
     private double internetInput;
     private double internetOutput;
-    SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy-MM-dd");
+    private String formattedDate;
 
 
-
-    public InternetTraficObject(Date date, double networkInput, double networkOutput, double uaixInput, double uaixOutput, double internetInput, double internetOutput) {
+    public InternetTrafficObject(Date date, double networkInput, double networkOutput, double uaixInput, double uaixOutput, double internetInput, double internetOutput) {
         this.date = date;
         this.networkInput = networkInput;
         this.networkOutput = networkOutput;
@@ -24,9 +23,20 @@ public class InternetTraficObject {
         this.uaixOutput = uaixOutput;
         this.internetInput = internetInput;
         this.internetOutput = internetOutput;
+        this.formattedDate = formatDate.format(date);
     }
 
-    public InternetTraficObject() {}
+    public InternetTrafficObject() {
+    }
+
+
+    public String getFormattedDate() {
+        return formattedDate;
+    }
+
+    public void setFormattedDate(String formattedDate) {
+        this.formattedDate = formattedDate;
+    }
 
     public Date getDate() {
         return date;
@@ -87,8 +97,8 @@ public class InternetTraficObject {
 
     @Override
     public String toString() {
-        return "InternetTraficObject{" +
-                "date=" + formatForDateNow.format(date) +
+        return "InternetTrafficObject{" +
+                "date=" + date +
                 ", networkInput=" + networkInput +
                 ", networkOutput=" + networkOutput +
                 ", uaixInput=" + uaixInput +
@@ -97,4 +107,8 @@ public class InternetTraficObject {
                 ", internetOutput=" + internetOutput +
                 '}';
     }
+
+    private SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+
+
 }

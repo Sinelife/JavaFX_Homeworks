@@ -7,27 +7,27 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="1026.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stream_homework.MainWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="783.0" prefWidth="1121.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stream_homework.MainWindowController">
    <children>
-      <TableView fx:id="trafficTable" layoutX="39.0" layoutY="31.0" prefHeight="433.0" prefWidth="950.0">
+      <TableView fx:id="trafficTable" layoutX="39.0" layoutY="31.0" prefHeight="433.0" prefWidth="927.0">
         <columns>
-          <TableColumn fx:id="dateColumn" prefWidth="123.0" text="Date" />
-          <TableColumn fx:id="netInputColumn" prefWidth="82.0" text="netInput" />
-            <TableColumn fx:id="netOutputColumn" prefWidth="101.0" text="netOutput" />
-            <TableColumn fx:id="uaixInputColumn" prefWidth="105.0" text="ua-ixInput" />
-            <TableColumn fx:id="uiaxOutputColumn" prefWidth="118.0" text="ua-ixOutput" />
-            <TableColumn fx:id="internetInputColumn" prefWidth="123.0" text="internetInput" />
-            <TableColumn fx:id="internetOutputColumn" prefWidth="151.0" text="internetOutput" />
+          <TableColumn fx:id="dateColumn" prefWidth="155.0" resizable="false" text="Date" />
+          <TableColumn fx:id="netInputColumn" prefWidth="116.0" resizable="false" text="netInput" />
+            <TableColumn fx:id="netOutputColumn" prefWidth="132.0" resizable="false" text="netOutput" />
+            <TableColumn fx:id="uaixInputColumn" prefWidth="128.0" resizable="false" text="ua-ixInput" />
+            <TableColumn fx:id="uiaxOutputColumn" prefWidth="114.0" resizable="false" text="ua-ixOutput" />
+            <TableColumn fx:id="internetInputColumn" prefWidth="146.0" resizable="false" text="internetInput" />
+            <TableColumn fx:id="internetOutputColumn" prefWidth="129.0" resizable="false" text="internetOutput" />
         </columns>
       </TableView>
-      <Button fx:id="countAllButton" layoutX="889.0" layoutY="628.0" mnemonicParsing="false" onAction="#countAll" text="Подсчитать" />
-      <Label fx:id="summaryNetInputLabel" layoutX="39.0" layoutY="491.0" text="Сумарный входной внутрисетевой трафик" />
-      <Label fx:id="summaryNetOutputLabel" layoutX="39.0" layoutY="524.0" text="Сумарный выходной внутрисетевой трафик" />
-      <Label fx:id="summaryUiaxOutputLabel" layoutX="39.0" layoutY="594.0" text="Сумарный выходной ua-ix трафик" />
-      <Label fx:id="summaryUiaxInputLabel" layoutX="39.0" layoutY="561.0" text="Сумарный входной ua-ix трафик" />
-      <Label fx:id="summaryInternetOutputLabel" layoutX="39.0" layoutY="665.0" text="Сумарный выходной интернет трафик" />
-      <Label fx:id="summaryInternetInputLabel" layoutX="39.0" layoutY="632.0" text="Сумарный входной интернет трафик" />
-      <Label fx:id="summaryOutputLabel" layoutX="494.0" layoutY="578.0" text="Сумарный выходной общий трафик" />
-      <Label fx:id="summaryInputLabel" layoutX="494.0" layoutY="545.0" text="Сумарный входной общий трафик" />
+      <Button fx:id="countAllButton" layoutX="450.0" layoutY="710.0" mnemonicParsing="false" onAction="#countAll" text="Подсчитать" />
+      <Label fx:id="summaryNetInputLabel" layoutX="62.0" layoutY="491.0" prefHeight="21.0" prefWidth="460.0" text="Сумарный входной внутрисетевой трафик" />
+      <Label fx:id="summaryNetOutputLabel" layoutX="62.0" layoutY="524.0" prefHeight="21.0" prefWidth="460.0" text="Сумарный выходной внутрисетевой трафик" />
+      <Label fx:id="summaryUiaxOutputLabel" layoutX="62.0" layoutY="590.0" prefHeight="21.0" prefWidth="460.0" text="Сумарный выходной ua-ix трафик" />
+      <Label fx:id="summaryUiaxInputLabel" layoutX="62.0" layoutY="562.0" prefHeight="21.0" prefWidth="460.0" text="Сумарный входной ua-ix трафик" />
+      <Label fx:id="summaryInternetOutputLabel" layoutX="550.0" layoutY="524.0" prefHeight="21.0" prefWidth="476.0" text="Сумарный выходной интернет трафик" />
+      <Label fx:id="summaryInternetInputLabel" layoutX="550.0" layoutY="491.0" prefHeight="21.0" prefWidth="476.0" text="Сумарный входной интернет трафик" />
+      <Label fx:id="summaryOutputLabel" layoutX="550.0" layoutY="590.0" prefHeight="21.0" prefWidth="476.0" text="Сумарный выходной общий трафик" />
+      <Label fx:id="summaryInputLabel" layoutX="550.0" layoutY="562.0" prefHeight="21.0" prefWidth="476.0" text="Сумарный входной общий трафик" />
    </children>
 </AnchorPane>

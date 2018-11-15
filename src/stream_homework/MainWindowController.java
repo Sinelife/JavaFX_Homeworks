@@ -11,8 +11,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 
 import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 
@@ -20,7 +18,7 @@ public class MainWindowController {
 
     @FXML Button countAllButton;
 
-    @FXML private TableView<InternetTraficObject> trafficTable;
+    @FXML private TableView<InternetTrafficObject> trafficTable;
 
 
     @FXML Label summaryNetInputLabel;
@@ -41,26 +39,30 @@ public class MainWindowController {
 
 
 
-    @FXML private TableColumn<InternetTraficObject,String> dateColumn;
+    @FXML private TableColumn<InternetTrafficObject, String> dateColumn;
 
-    @FXML private TableColumn<InternetTraficObject, String> netInputColumn;
+    @FXML private TableColumn<InternetTrafficObject, String> netInputColumn;
 
-    @FXML private TableColumn<InternetTraficObject,String> netOutputColumn;
+    @FXML private TableColumn<InternetTrafficObject,String> netOutputColumn;
 
-    @FXML private TableColumn<InternetTraficObject,String> uaixInputColumn;
+    @FXML private TableColumn<InternetTrafficObject,String> uaixInputColumn;
 
-    @FXML private TableColumn<InternetTraficObject,String> uiaxOutputColumn;
+    @FXML private TableColumn<InternetTrafficObject,String> uiaxOutputColumn;
 
-    @FXML private TableColumn<InternetTraficObject,String> internetInputColumn;
+    @FXML private TableColumn<InternetTrafficObject,String> internetInputColumn;
 
-    @FXML private TableColumn<InternetTraficObject,String> internetOutputColumn;
-
-
-    private ObservableList<InternetTraficObject> trafficsData = FXCollections.observableArrayList();
+    @FXML private TableColumn<InternetTrafficObject,String> internetOutputColumn;
 
 
+    private ObservableList<InternetTrafficObject> trafficsData = FXCollections.observableArrayList();
+
+
+
+    /**
+     * Метод нициализирует окно
+     */
     public void initialize() {
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("Date"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("formattedDate"));
         netInputColumn.setCellValueFactory(new PropertyValueFactory<>("networkInput"));
         netOutputColumn.setCellValueFactory(new PropertyValueFactory<>("networkOutput"));
         uaixInputColumn.setCellValueFactory(new PropertyValueFactory<>("uaixInput"));
@@ -70,36 +72,29 @@ public class MainWindowController {
     }
 
 
-
-
-
+    /**
+     * Метод, вызываемый нажатием кнопки Подсчитать.
+     * Нажатие кнопки вызывает вывод всех обьектов InternetTrafficObject в
+     * таблицу и подсчет всех сумарных трафиков.
+     */
     @FXML
     public void countAll() throws IOException {
-        List<InternetTraficObject> trafficList = InternetTraficWorker.getTrafficListFromFile();
+        trafficTable.getItems().removeAll(trafficsData);
+        List<InternetTrafficObject> trafficList = InternetTrafficWorker.getTrafficListFromFile();
         trafficList.stream()
-                .forEach(a -> trafficsData.add(new InternetTraficObject(a.getDate(),a.getNetworkInput(),a.getNetworkOutput(),a.getUaixInput(),a.getUaixOutput(),a.getInternetInput(),a.getInternetOutput())));
-
+                .forEach(a -> trafficsData.add(new InternetTrafficObject(a.getDate(), a.getNetworkInput(), a.getNetworkOutput(), a.getUaixInput(), a.getUaixOutput(), a.getInternetInput(), a.getInternetOutput())));
         trafficTable.setItems(trafficsData);
 
-        summaryNetInputLabel.setText(addResultToLabel(summaryNetInputLabel,String.valueOf(InternetTraficWorker.getSumNetworkInputTraffic(trafficList))));
-        summaryNetOutputLabel.setText(addResultToLabel(summaryNetOutputLabel,String.valueOf(InternetTraficWorker.getSumNetworkOutputTraffic(trafficList))));
+        summaryNetInputLabel.setText("Сумарный входной внутрисетевой трафик - " + InternetTrafficWorker.getChosenSum(trafficList, traffic -> traffic.getNetworkInput()));
+        summaryNetOutputLabel.setText("Сумарный выходной внутрисетевой трафик - " + InternetTrafficWorker.getChosenSum(trafficList, traffic -> traffic.getNetworkOutput()));
 
-        summaryUiaxInputLabel.setText(addResultToLabel(summaryUiaxInputLabel,String.valueOf(InternetTraficWorker.getSumUaixInputTraffic(trafficList))));
-        summaryUiaxOutputLabel.setText(addResultToLabel(summaryUiaxOutputLabel,String.valueOf(InternetTraficWorker.getSumUaixOutputTraffic(trafficList))));
+        summaryUiaxInputLabel.setText("Сумарный входной ua-ix трафик - " + InternetTrafficWorker.getChosenSum(trafficList, traffic -> traffic.getUaixInput()));
+        summaryUiaxOutputLabel.setText("Сумарный выходной ua-ix трафик - " + InternetTrafficWorker.getChosenSum(trafficList, traffic -> traffic.getUaixOutput()));
 
-        summaryInternetInputLabel.setText(addResultToLabel(summaryInternetInputLabel,String.valueOf(InternetTraficWorker.getSumInternetInputTraffic(trafficList))));
-        summaryInternetOutputLabel.setText(addResultToLabel(summaryInternetOutputLabel,String.valueOf(InternetTraficWorker.getSumInternetOutputTraffic(trafficList))));
+        summaryInternetInputLabel.setText("Сумарный входной интернет трафик - " + InternetTrafficWorker.getChosenSum(trafficList, traffic -> traffic.getInternetInput()));
+        summaryInternetOutputLabel.setText("Сумарный выходной интернет трафик - " + InternetTrafficWorker.getChosenSum(trafficList, traffic -> traffic.getInternetOutput()));
 
-        summaryInputLabel.setText(addResultToLabel(summaryInputLabel,String.valueOf(InternetTraficWorker.getSumAllInputTraffic(trafficList))));
-        summaryOutputLabel.setText(addResultToLabel(summaryOutputLabel,String.valueOf(InternetTraficWorker.getSumAllOutputTraffic(trafficList))));
-
+        summaryInputLabel.setText("Сумарный входной общий трафик - " + InternetTrafficWorker.getChosenSum(trafficList, traffic -> traffic.getInternetInput() + traffic.getUaixInput() + traffic.getNetworkInput()));
+        summaryOutputLabel.setText("Сумарный выходной общий трафик - " + InternetTrafficWorker.getChosenSum(trafficList, traffic -> traffic.getInternetOutput() + traffic.getUaixOutput() + traffic.getNetworkOutput()));
     }
-
-
-    public String addResultToLabel(Label label, String extraText){
-        String res = label.getText() + " - " + extraText;
-        return res;
-    }
-
-
 }
