@@ -17,7 +17,7 @@ public class InternetTrafficWorker {
      */
     public static List<InternetTrafficObject> getTrafficListFromFile() throws IOException {
         List<InternetTrafficObject> trafficList = new LinkedList<>();
-        Files.lines(Paths.get("C:\\Users\\Ярослав\\IdeaProjects\\JavaFX_Homeworks\\src\\stream_homework\\traffic.txt"))
+        Files.lines(Paths.get("traffic.txt"))
                 .forEach(line -> trafficList.add(getTrafficObjectFromLine(Arrays.stream(line.split("\\s")))));
         return trafficList;
     }
