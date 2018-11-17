@@ -26,6 +26,6 @@ public class MainWindowController {
 
 
     public void OnClickCopyButton() throws IOException {
-        TesterMultithread.multithreadCopy(pathOfWhereCopyFile);
+        MultithreadDownloader.multithreadCopy(pathOfWhereCopyFile);
     }
 }

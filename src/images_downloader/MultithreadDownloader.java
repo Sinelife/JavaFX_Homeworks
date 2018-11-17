@@ -9,7 +9,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TesterMultithread {
+public class MultithreadDownloader {
     public static void multithreadCopy(String pathWhere) throws IOException {
         Document doc = Jsoup.connect("http://flangex.herokuapp.com/io/load").get();
         List<Element> images = doc.getElementsByTag("a");
