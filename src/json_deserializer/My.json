@@ -1,0 +1,19 @@
+[
+  {
+    "name": "Элейн",
+    "race": "ельф",
+    "age": 1000,
+    "isAlive": true,
+    "weapons":
+    {
+        "type": "нож",
+        "power": 30
+    },
+
+    "jewel":
+    {
+      "type": "кольцо",
+      "ability": "защита"
+    }
+  }
+]
