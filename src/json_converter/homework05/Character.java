@@ -22,8 +22,11 @@ public class Character {
     @JsonField
     private Jewel jewel;
 
+    @JsonField
+    private String[] psevdonims;
 
-    public Character(String name, String race, int age, boolean isAlive, String clanName, Weapon[] weapons, Jewel jewel) {
+
+    public Character(String name, String race, int age, boolean isAlive, String clanName, Weapon[] weapons, Jewel jewel, String[] psevdonims) {
         this.name = name;
         this.race = race;
         this.age = age;
@@ -31,5 +34,6 @@ public class Character {
         this.clanName = clanName;
         this.weapons = weapons;
         this.jewel = jewel;
+        this.psevdonims = psevdonims;
     }
 }

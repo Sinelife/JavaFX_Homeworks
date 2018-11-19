@@ -10,8 +10,12 @@ public class Weapon {
     @JsonField
     private int power;
 
-    public Weapon(String type, int power) {
+    @JsonField
+    private Modification[] mods;
+
+    public Weapon(String type, int power, Modification[] mods) {
         this.type = type;
         this.power = power;
+        this.mods = mods;
     }
 }

@@ -3,10 +3,8 @@ package json_converter;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import json_converter.homework05.*;
 import json_converter.homework05.Character;
-import json_converter.homework05.Jewel;
-import json_converter.homework05.JsonConverter;
-import json_converter.homework05.Weapon;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -23,12 +21,15 @@ public class MainWindowController {
 
 
     public void OnClickOutput() throws IllegalAccessException {
+        Modification[] m1 = {new Modification("mod1"),new Modification("mod2")};
+        Modification[] m2 = {new Modification("mod10"),new Modification("mod20")};
         Jewel jewel = new Jewel("кольцо", "защита");
         Jewel jewel2 = new Jewel("амулет", "регенерация");
-        Weapon[] weapons = {new Weapon("нож", 30), new Weapon("кинжал", 50), new Weapon("лук", 30)};
-        Weapon[] weapons2 = {new Weapon("меч", 200), new Weapon("перчатка", 150)};
-        Character[] characters = {new Character("Элейн","ельф",1000, true, "Элрис", weapons, jewel),
-                                new Character("Кахат","демон",9999, false, "Молох", weapons2, jewel2)};
+        Weapon[] weapons = {new Weapon("нож", 30, m1), new Weapon("кинжал", 50, m1), new Weapon("лук", 30, m2)};
+        Weapon[] weapons2 = {new Weapon("меч", 200,null), new Weapon("перчатка", 150, null)};
+        String[] psevdonims1 = {"принцесса","могучая"};
+        String[] psevdonims2 = {"Кровавый бог","смертоносный"};
+        Character[] characters = {new Character("Элейн","ельф",1000, true, "Элрис", weapons, jewel, psevdonims1)};
 
         result = JsonConverter.toJson(characters);
         textArea.setText(result);

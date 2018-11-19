@@ -1,6 +1,8 @@
 package json_deserializer;
 
 
+import java.util.Arrays;
+
 public class Character {
 
     private String name;
@@ -13,12 +15,14 @@ public class Character {
 
     private String clanName;
 
-    private Weapon weapons;
+    private Weapon[] weapons;
 
     private Jewel jewel;
 
+    private String[] psevdonims;
 
-    public Character(String name, String race, int age, boolean isAlive, String clanName, Weapon weapons, Jewel jewel) {
+
+    public Character(String name, String race, int age, boolean isAlive, String clanName, Weapon[] weapons, Jewel jewel, String[] psevdonims) {
         this.name = name;
         this.race = race;
         this.age = age;
@@ -26,6 +30,7 @@ public class Character {
         this.clanName = clanName;
         this.weapons = weapons;
         this.jewel = jewel;
+        this.psevdonims = psevdonims;
     }
 
     public Character() {
@@ -34,14 +39,15 @@ public class Character {
 
     @Override
     public String toString() {
-        return "Character{" +
-                "name='" + name + '\'' +
-                ", race='" + race + '\'' +
-                ", age=" + age +
-                ", isAlive=" + isAlive +
-                ", clanName='" + clanName + '\'' +
-                ", weapons=" + weapons +
-                ", jewel=" + jewel +
+        return "Character{" + "\n" +
+                "name='" + name + '\'' + "\n" +
+                ", race='" + race + '\'' + "\n" +
+                ", age=" + age + "\n" +
+                ", isAlive=" + isAlive + "\n" +
+                ", clanName='" + clanName + '\'' + "\n" +
+                ", weapons=" + Arrays.toString(weapons) + "\n" +
+                ", jewel=" + jewel + "\n" +
+                ", psevdonims=" + Arrays.toString(psevdonims) + "\n" +
                 '}';
     }
 }

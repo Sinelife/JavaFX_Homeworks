@@ -4,12 +4,23 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Main {
+    static List<String> primitives;
+    private static int isEndOfArray = 1;
+
+
     public static void main(String[] args) throws IOException, IllegalAccessException, ClassNotFoundException, InstantiationException, NoSuchFieldException {
+        String[] primitivesArray = {"int","double","boolean","long","short","byte"};
+        primitives = new LinkedList<>();
+        for (String primitive : primitivesArray) {
+            primitives.add(primitive);
+        }
+
         File file = new File("src/json_deserializer/My.json");
         String text = getStringFromFile(file);
         System.out.println(text);
@@ -28,21 +39,15 @@ public class Main {
 
 
         System.out.println("\n\n\n\n\n\n\n\n" + c);
-//
-//        Class<?> clazz = Class.forName(c.getClass().getName());
-//        Object instance = clazz.newInstance();
-//        setValueInField(instance, "name", "Kron");
-//        setValueInField(instance, "age", 12);
-//
-//        //Class<?> clazz1 = Class.forName()
-//        System.out.println(instance);
-
 
     }
 
 
 
 
+    /**
+     * Метод для заполнения значениями всех полей обьекта
+     */
     public static  void setValueInField(Object object, List<String> list) throws IllegalAccessException, NoSuchFieldException, ClassNotFoundException, InstantiationException {
         Class<?> clazz = object.getClass();
         System.out.println(clazz);
@@ -57,12 +62,19 @@ public class Main {
             field.setAccessible(true);
             if (field.getType().isPrimitive() || field.getType().getSimpleName().equals("String")) {
                 System.out.println("dddddddd");
+                if(list.get(0).contains("]")){
+                    isEndOfArray--;
+                }
+                if(list.get(0).contains("[")){
+                    isEndOfArray++;
+                }
                 String fieldValue = getClearValue(list.remove(0));
                 setCastedFieldValue(object, field, fieldValue);
             }
-            //else if(field.getType().isArray()){
-            //setValueInArrayField(getClearValue(field.getType().getTypeName()),list);
-            //}
+            else if(field.getType().isArray()){
+                System.out.println(field.getType().getTypeName());
+                setValueInArrayField(object,field,list);
+            }
             else {
                 Class<?> fieldType = Class.forName(field.getType().getTypeName());
                 Object o = fieldType.newInstance();
@@ -73,15 +85,14 @@ public class Main {
     }
 
 
-    public static void setObjectFieldValue(Object object, Field field, Object fieldValue) throws IllegalAccessException {
-
-    }
-
-
+    /**
+     * Метод для преобразования считаного значения поля в необходимый тип
+     * Этот метод необходим так как все примитивы должны преобразовываться
+     * по своему из строки
+     */
     public static void setCastedFieldValue(Object object, Field field, String fieldValue) throws IllegalAccessException {
         Class<?> fieldType = field.getType();
         if(fieldType.getName().equals("int")){
-            System.out.println("INTEGER");
             field.set(object, Integer.valueOf(fieldValue));
         }
         else if(fieldType.getName().equals("boolean")){
@@ -105,18 +116,101 @@ public class Main {
     }
 
 
-//    public static void setValueInArrayField(String className, List<String> list) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException, InstantiationException {
-//        Class<?> clazz = Class.forName(className);
-//        Object o = clazz.newInstance();
-//        String fieldName = getClearValue(list.remove(0));
-//        Field field = clazz.getDeclaredField(fieldName);
-//        for (int i = 0; i < objects; i++) {
-//
-//        }
-//    }
+    /**
+     * Метод для записи данных из нашего списка строк данных в поле-масив
+     * обьекта
+     */
+    public static void setValueInArrayField(Object object, Field field, List<String> list) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException, InstantiationException {
+        String className = field.getType().getTypeName();
+        if(isArrayOfPrimitives(className)){
+            setValueInPrimitiveArrayField(object,field,list);
+        }
+        else {
+            Class<?> clazz = Class.forName(getClearValue(className));
+            System.out.println(clazz);
+            List<Object> listOfObjects = new LinkedList<>();
+            int counter = 0;
+            while (isEndOfArray != 0) {
+                className = getClearValue(className);
+                Class<?> clazzObject = Class.forName(className);
+                Object o = clazzObject.newInstance();
+                setValueInField(o, list);
+                listOfObjects.add(o);
+                counter++;
+            }
+            Object array = Array.newInstance(clazz, counter);
+            counter = 0;
+            for (Object o : listOfObjects) {
+                Array.set(array, counter, o);
+                counter++;
+            }
+            //isEndOfArray = false;
+            field.set(object, array);
+        }
+    }
 
 
+    /**
+     * Метод, который проверяет являеться ли поле-масив масивом примитивов
+     * или нет
+     */
+    private static boolean isArrayOfPrimitives(String className) throws ClassNotFoundException {
+        if(className.equals("int[]")){
+            return true;
+        }
+        else if(className.equals("java.lang.String[]")){
+            return true;
+        }
+        return false;
+    }
 
+
+    /**
+     * Метод для записи данных из нашего списка строк данных в поле-масив
+     * примитив
+     */
+    private static void setValueInPrimitiveArrayField(Object object, Field field, List<String> list) throws ClassNotFoundException, IllegalAccessException {
+        String className = field.getType().getTypeName();
+        Class<?> clazz = null;
+        if(className.equals("java.lang.String[]")){
+            clazz = Class.forName(getClearValue(className));
+        }
+        if(className.equals("int[]")){
+            clazz = Class.forName("java.lang.Integer");
+        }
+        System.out.println(clazz.getName());
+        int counter = 1;
+        for (String s : list) {
+            if(s.contains("]")){
+                break;
+            }
+            counter++;
+        }
+        Object array = Array.newInstance(clazz, counter);
+        int[] ints = new int[counter];
+        for (int i = 0; i < counter; i++) {
+            String fieldValue = getClearValue(list.remove(0));
+            System.out.println(fieldValue);
+            if(className.equals("java.lang.String[]")){
+                Array.set(array, i, fieldValue);
+            }
+            if(className.equals("int[]")){
+                ints[i] = Integer.parseInt(fieldValue);
+            }
+        }
+        if(className.equals("int[]")){
+            field.set(object,ints);
+        }
+        if(className.equals("java.lang.String[]")){
+            field.set(object, array);
+        }
+
+    }
+
+    /**
+     * Метод, который убирает из строки лишние символы вроде
+     * ':',',','{','}','[',']
+     */
     public static String getClearValue(String str){
         char[] chars = str.toCharArray();
         str = "";
@@ -144,24 +238,53 @@ public class Main {
         return text;
     }
 
+
+    /**
+     * Метод для преобразования считаной из json файла строки и
+     * преобразования ее в список строк
+     */
     private static List<String> getParsedList(String text){
-        text = text.replaceAll("\n|\r\n| |\"", "");
+        text = text.replaceAll("\n|\r\n|", "");
         List<String> list = new LinkedList<>();
         char[] chars = text.toCharArray();
         String word = "";
         for(int i = 0; i < chars.length; i++){
             if (chars[i] == ':' || chars[i] == ',') {
                 word += chars[i];
-                word.trim();
+                word = getWordWithOutSpaces(word);
                 list.add(word);
                 word = "";
-            } else {
+            }
+            else {
                 word += chars[i];
             }
         }
+        word = getWordWithOutSpaces(word);
         list.add(word);
         return list;
     }
 
+
+    /**
+     * Метод, который убирает из строки все пробелы кроме пробелов
+     * в кавычках
+     */
+    private static String getWordWithOutSpaces(String word){
+        int counter = 0;
+        char[] chars = word.toCharArray();
+        String newWord = "";
+        for (int i = 0; i < chars.length; i++) {
+            if(chars[i] == '"'){
+                counter++;
+            }
+            if(chars[i] == ' ' && counter == 1){
+                newWord += chars[i];
+            }
+            if(chars[i] != ' ' && chars[i] != '"'){
+                newWord += chars[i];
+            }
+        }
+        return newWord;
+    }
 
 }

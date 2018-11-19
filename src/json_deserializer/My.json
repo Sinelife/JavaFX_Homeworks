@@ -4,16 +4,25 @@
     "race": "ельф",
     "age": 1000,
     "isAlive": true,
-    "weapons":
-    {
+    "weapons": [
+      {
         "type": "нож",
         "power": 30
-    },
-
+      },
+      {
+        "type": "кинжал",
+        "power": 50
+      },
+      {
+        "type": "лук",
+        "power": 30
+      }],
     "jewel":
     {
       "type": "кольцо",
-      "ability": "защита"
-    }
+      "ability": "защита",
+      "numbers":[1,4,7,10]
+    },
+    "psevdonims":["принцесса леса", "лесная владычица","могучая"]
   }
 ]
