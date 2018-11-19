@@ -11,13 +11,14 @@ public class Test {
 
         A a = new A();
         Field f = a.getClass().getDeclaredField("a");
-        Class<?> clazz = Class.forName("java.lang.String[]");
-        System.out.println(clazz.getName());
+        System.out.println(f.getType().getName());
+//        Class<?> clazz = Class.forName("java.lang.String[]");
+//        System.out.println(clazz.getName());
     }
 
 
     public static class A{
-        Integer[] a;
+        double[] a;
 
     }
 }

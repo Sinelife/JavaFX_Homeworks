@@ -11,19 +11,6 @@ import java.util.List;
 
 
 public class JsonConverter {
-    public static void main(String[] args) throws IllegalAccessException {
-//        Jewel jewel = new Jewel("кольцо", "защита");
-//        Weapon[] weapons = {new Weapon("нож", 30), new Weapon("кинжал", 50), new Weapon("лук", 30)};
-//        Character character = new Character("Элейн","ельф",1000, true, "Элрис", weapons, jewel);
-//        System.out.println(toJson(character));
-//
-//
-//        Weapon[] allWeapons = {new Weapon("нож", 30), new Weapon("кинжал", 50), new Weapon("лук", 30)};
-//        System.out.println(toJson(allWeapons));
-    }
-
-
-
 
     /**
      * Метод возвращающий переданый как параметр массив объектов в json
@@ -159,6 +146,9 @@ public class JsonConverter {
             Object object = field.get(elem);
             result += toJson(object, ++num);
         }
+        else if(isArrayPrimitiveFieldValue(field)){
+            result += setArrayPrimitiveFieldValue(field, elem);
+        }
         else {
             Object[] objects = (Object[]) field.get(elem);
             result += "[";
@@ -172,6 +162,162 @@ public class JsonConverter {
                 }
             }
             result += "]";
+        }
+        return result;
+    }
+
+
+
+    private static boolean isArrayPrimitiveFieldValue(Field field){
+        if(field.getType().getName().equals("[I")){
+            System.out.println("int[] ---------------");
+            return true;
+        }
+        System.out.println(field.getType().getName());
+        if(field.getType().getName().equals("[Ljava.lang.String;")){
+            System.out.println("String[] ---------------");
+            return true;
+        }
+        if(field.getType().getName().equals("[D")){
+            System.out.println("double[] ---------------");
+            return true;
+        }
+        if(field.getType().getName().equals("[I")){
+            System.out.println("int[] ---------------");
+            return true;
+        }
+        if(field.getType().getName().equals("[J")){
+            System.out.println("long[] ---------------");
+            return true;
+        }
+        if(field.getType().getName().equals("[B")){
+            System.out.println("byte[] ---------------");
+            return true;
+        }
+        if(field.getType().getName().equals("[S")){
+            System.out.println("short[] ---------------");
+            return true;
+        }
+        if(field.getType().getName().equals("[C")){
+            System.out.println("char[] ---------------");
+            return true;
+        }
+        return false;
+    }
+
+
+    private static String setArrayPrimitiveFieldValue(Field field, Object elem) throws IllegalAccessException {
+        String result = "[";
+        System.out.println(field.getType().getName());
+        if(field.getType().getName().equals("[I")){
+            result += setIntArrayFieldValue(field,elem);
+        }
+        if(field.getType().getName().equals("[D")){
+            result += setDoubleArrayFieldValue(field,elem);
+        }
+        if(field.getType().getName().equals("[J")){
+            result += setLongArrayFieldValue(field,elem);
+        }
+        if(field.getType().getName().equals("[B")){
+            result += setByteArrayFieldValue(field,elem);
+        }
+        if(field.getType().getName().equals("[S")){
+            result += setShortArrayFieldValue(field,elem);
+        }
+        if(field.getType().getName().equals("[C")){
+            result += setCharArrayFieldValue(field,elem);
+        }
+        if(field.getType().getName().equals("[Ljava.lang.String;")){
+            result += setStringArrayFieldValue(field, elem);
+        }
+
+        result += "]";
+        return result;
+    }
+
+
+
+
+    private static String setStringArrayFieldValue(Field field, Object elem) throws IllegalAccessException {
+        String result = "";
+        String[] strings = (String[]) field.get(elem);
+        for (int i = 0; i < strings.length; i++) {
+            result += "\"" + strings[i] + "\"";
+            if (i != strings.length - 1) {
+                result += ", ";
+            }
+        }
+        return result;
+    }
+
+    private static String setCharArrayFieldValue(Field field, Object elem) throws IllegalAccessException {
+        String result = "";
+        char[] chars = (char[]) field.get(elem);
+        for (int i = 0; i < chars.length; i++) {
+            result += "\"" + chars[i] + "\"";
+            if (i != chars.length - 1) {
+                result += ", ";
+            }
+        }
+        return result;
+    }
+
+    private static String setShortArrayFieldValue(Field field, Object elem) throws IllegalAccessException {
+        String result = "";
+        short[] ints = (short[]) field.get(elem);
+        for (int i = 0; i < ints.length; i++) {
+            result += ints[i];
+            if (i != ints.length - 1) {
+                result += ", ";
+            }
+        }
+        return result;
+    }
+
+    private static String setByteArrayFieldValue(Field field, Object elem) throws IllegalAccessException {
+        String result = "";
+        byte[] ints = (byte[]) field.get(elem);
+        for (int i = 0; i < ints.length; i++) {
+            result += ints[i];
+            if (i != ints.length - 1) {
+                result += ", ";
+            }
+        }
+        return result;
+    }
+
+    private static String setIntArrayFieldValue(Field field, Object elem) throws IllegalAccessException {
+        String result = "";
+        int[] ints = (int[]) field.get(elem);
+        for (int i = 0; i < ints.length; i++) {
+            result += ints[i];
+            if (i != ints.length - 1) {
+                result += ", ";
+            }
+        }
+        return result;
+    }
+
+    private static String setDoubleArrayFieldValue(Field field, Object elem) throws IllegalAccessException {
+        String result = "";
+        double[] ints = (double[]) field.get(elem);
+        for (int i = 0; i < ints.length; i++) {
+            result += ints[i];
+            if (i != ints.length - 1) {
+                result += ", ";
+            }
+        }
+        return result;
+    }
+
+    private static String setLongArrayFieldValue(Field field, Object elem) throws IllegalAccessException {
+        String result = "";
+        long[] ints = (long[]) field.get(elem);
+        for (int i = 0; i < ints.length; i++) {
+            result += ints[i];
+            if (i != ints.length - 1) {
+                result += ", ";
+            }
         }
         return result;
     }

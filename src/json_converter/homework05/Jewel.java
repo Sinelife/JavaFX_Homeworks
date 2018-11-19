@@ -5,14 +5,18 @@ package json_converter.homework05;
 @JsonEntity
 public class Jewel {
 
-    @JsonField(name = "jewel_type")
+    @JsonField
     private String type;
 
-    @JsonField(name = "jewel_ability")
+    @JsonField
     private String ability;
 
-    public Jewel(String type, String ability) {
+    @JsonField
+    private int[] numbers;
+
+    public Jewel(String type, String ability, int[] numbers) {
         this.type = type;
         this.ability = ability;
+        this.numbers = numbers;
     }
 }
