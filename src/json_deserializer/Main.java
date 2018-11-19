@@ -200,6 +200,18 @@ public class Main {
         if(className.equals("int[]")){
             setValueInIntegerArrayField(counter, object, field, list);
         }
+        if(className.equals("long[]")){
+            setValueInLongArrayField(counter, object, field, list);
+        }
+        if(className.equals("short[]")){
+            setValueInShortArrayField(counter, object, field, list);
+        }
+        if(className.equals("byte[]")){
+            setValueInByteArrayField(counter, object, field, list);
+        }
+        if(className.equals("double[]")){
+            setValueInDoubleArrayField(counter, object, field, list);
+        }
     }
 
 
@@ -213,6 +225,48 @@ public class Main {
         }
         field.set(object, array);
     }
+
+    private static void setValueInDoubleArrayField(int counter, Object object, Field field, List<String> list) throws ClassNotFoundException, IllegalAccessException {
+        double[] doubles = new double[counter];
+        for (int i = 0; i < counter; i++) {
+            String fieldValue = getClearValue(list.remove(0));
+            System.out.println(fieldValue);
+            doubles[i] = Double.parseDouble(fieldValue);
+        }
+        field.set(object,doubles);
+    }
+
+    private static void setValueInLongArrayField(int counter, Object object, Field field, List<String> list) throws ClassNotFoundException, IllegalAccessException {
+        long[] longs = new long[counter];
+        for (int i = 0; i < counter; i++) {
+            String fieldValue = getClearValue(list.remove(0));
+            System.out.println(fieldValue);
+            longs[i] = Long.parseLong(fieldValue);
+        }
+        field.set(object,longs);
+    }
+
+    private static void setValueInShortArrayField(int counter, Object object, Field field, List<String> list) throws ClassNotFoundException, IllegalAccessException {
+        short[] shorts = new short[counter];
+        for (int i = 0; i < counter; i++) {
+            String fieldValue = getClearValue(list.remove(0));
+            System.out.println(fieldValue);
+            shorts[i] = Short.parseShort(fieldValue);
+        }
+        field.set(object,shorts);
+    }
+
+    private static void setValueInByteArrayField(int counter, Object object, Field field, List<String> list) throws ClassNotFoundException, IllegalAccessException {
+        byte[] bytes = new byte[counter];
+        for (int i = 0; i < counter; i++) {
+            String fieldValue = getClearValue(list.remove(0));
+            System.out.println(fieldValue);
+            bytes[i] = Byte.parseByte(fieldValue);
+        }
+        field.set(object,bytes);
+    }
+
+
 
     private static void setValueInIntegerArrayField(int counter, Object object, Field field, List<String> list) throws ClassNotFoundException, IllegalAccessException {
         int[] ints = new int[counter];
