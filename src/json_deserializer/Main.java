@@ -158,6 +158,21 @@ public class Main {
         if(className.equals("int[]")){
             return true;
         }
+        else if(className.equals("double[]")){
+            return true;
+        }
+        else if(className.equals("byte[]")){
+            return true;
+        }
+        else if(className.equals("long[]")){
+            return true;
+        }
+        else if(className.equals("short[]")){
+            return true;
+        }
+        else if(className.equals("char[]")){
+            return true;
+        }
         else if(className.equals("java.lang.String[]")){
             return true;
         }
@@ -172,13 +187,6 @@ public class Main {
     private static void setValueInPrimitiveArrayField(Object object, Field field, List<String> list) throws ClassNotFoundException, IllegalAccessException {
         String className = field.getType().getTypeName();
         Class<?> clazz = null;
-        if(className.equals("java.lang.String[]")){
-            clazz = Class.forName(getClearValue(className));
-        }
-        if(className.equals("int[]")){
-            clazz = Class.forName("java.lang.Integer");
-        }
-        System.out.println(clazz.getName());
         int counter = 1;
         for (String s : list) {
             if(s.contains("]")){
@@ -186,26 +194,36 @@ public class Main {
             }
             counter++;
         }
+        if(className.equals("java.lang.String[]")){
+            setValueInStringArrayField(counter, object, field, list);
+        }
+        if(className.equals("int[]")){
+            setValueInIntegerArrayField(counter, object, field, list);
+        }
+    }
+
+
+    private static void setValueInStringArrayField(int counter, Object object, Field field, List<String> list) throws ClassNotFoundException, IllegalAccessException {
+        Class<?> clazz = Class.forName("java.lang.String");
         Object array = Array.newInstance(clazz, counter);
+        for (int i = 0; i < counter; i++) {
+            String fieldValue = getClearValue(list.remove(0));
+            System.out.println(fieldValue);
+            Array.set(array, i, fieldValue);
+        }
+        field.set(object, array);
+    }
+
+    private static void setValueInIntegerArrayField(int counter, Object object, Field field, List<String> list) throws ClassNotFoundException, IllegalAccessException {
         int[] ints = new int[counter];
         for (int i = 0; i < counter; i++) {
             String fieldValue = getClearValue(list.remove(0));
             System.out.println(fieldValue);
-            if(className.equals("java.lang.String[]")){
-                Array.set(array, i, fieldValue);
-            }
-            if(className.equals("int[]")){
-                ints[i] = Integer.parseInt(fieldValue);
-            }
+            ints[i] = Integer.parseInt(fieldValue);
         }
-        if(className.equals("int[]")){
-            field.set(object,ints);
-        }
-        if(className.equals("java.lang.String[]")){
-            field.set(object, array);
-        }
-
+        field.set(object,ints);
     }
+
 
     /**
      * Метод, который убирает из строки лишние символы вроде
@@ -224,6 +242,9 @@ public class Main {
         }
         return str;
     }
+
+
+
 
     /**
      * Прочитать посимвольно файл и записать его в строку
