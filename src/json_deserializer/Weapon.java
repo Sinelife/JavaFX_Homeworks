@@ -1,14 +1,18 @@
 package json_deserializer;
 
 
+import java.util.Arrays;
+
 public class Weapon {
 
     private String type;
     private int power;
+    private Rune[] runes;
 
-    public Weapon(String type, int power) {
+    public Weapon(String type, int power, Rune[] runes) {
         this.type = type;
         this.power = power;
+        this.runes = runes;
     }
 
     public Weapon(){}
@@ -18,6 +22,7 @@ public class Weapon {
         return "Weapon{" +
                 "type='" + type + '\'' +
                 ", power=" + power +
+                ", runes=" + Arrays.toString(runes) +
                 '}';
     }
 }

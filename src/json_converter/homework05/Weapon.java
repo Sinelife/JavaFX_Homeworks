@@ -10,9 +10,13 @@ public class Weapon {
     @JsonField
     private int power;
 
+    @JsonField
+    private Rune[] runes;
 
-    public Weapon(String type, int power) {
+
+    public Weapon(String type, int power, Rune[] runes) {
         this.type = type;
         this.power = power;
+        this.runes = runes;
     }
 }

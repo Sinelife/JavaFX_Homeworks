@@ -12,7 +12,7 @@ public class Modification {
 
     @Override
     public String toString() {
-        return "Modification{" +
+        return "Rune{" +
                 "value='" + value + '\'' +
                 '}';
     }

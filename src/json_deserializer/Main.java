@@ -10,36 +10,36 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Main {
-    static List<String> primitives;
-    private static int isEndOfArray = 1;
-
 
     public static void main(String[] args) throws IOException, IllegalAccessException, ClassNotFoundException, InstantiationException, NoSuchFieldException {
-        String[] primitivesArray = {"int","double","boolean","long","short","byte"};
-        primitives = new LinkedList<>();
-        for (String primitive : primitivesArray) {
-            primitives.add(primitive);
-        }
-
         File file = new File("src/json_deserializer/My.json");
         String text = getStringFromFile(file);
-        System.out.println(text);
+//        System.out.println(text);
         List<String> wordList = getParsedList(text);
         int counter = 1;
         for (String s : wordList) {
             System.out.println(counter++ + ")" + s);
         }
+
         Character c = new Character();
-        Jewel j = new Jewel();
-        Weapon w = new Weapon();
+        List<Character> characterList = new LinkedList<>();
+        getDesirealizedObjectList(c, wordList, characterList);
+
+        System.out.println(characterList.size());
+        for (Character character : characterList) {
+            System.out.println(character + "\n\n");
+        }
+
+    }
 
 
-        setValueInField(c, wordList);
-
-
-
-        System.out.println("\n\n\n\n\n\n\n\n" + c);
-
+    public static <E> void getDesirealizedObjectList(E elem, List<String> wordList, List<E> objectsList) throws ClassNotFoundException, NoSuchFieldException, InstantiationException, IllegalAccessException {
+        while(!wordList.isEmpty()){
+            Class<E> objectType = (Class<E>) Class.forName(elem.getClass().getName());
+            E element = objectType.newInstance();
+            setValueInField(element,wordList);
+            objectsList.add(element);
+        }
     }
 
 
@@ -48,12 +48,16 @@ public class Main {
     /**
      * Метод для заполнения значениями всех полей обьекта
      */
-    public static  void setValueInField(Object object, List<String> list) throws IllegalAccessException, NoSuchFieldException, ClassNotFoundException, InstantiationException {
+    public static void setValueInField(Object object, List<String> list) throws IllegalAccessException, NoSuchFieldException, ClassNotFoundException, InstantiationException {
         Class<?> clazz = object.getClass();
         System.out.println(clazz);
         Field[] fields = clazz.getDeclaredFields();
-        for (Field f : fields) {
+        for (Field ignored : fields) {
             if(list.isEmpty()){
+                break;
+            }
+            if(list.get(0).equals(",")){
+                list.remove(0);
                 break;
             }
             String fieldName = getClearValue(list.remove(0));
@@ -61,12 +65,8 @@ public class Main {
             System.out.println("\t" + fieldName);
             field.setAccessible(true);
             if (field.getType().isPrimitive() || field.getType().getSimpleName().equals("String")) {
-                System.out.println("dddddddd");
-                if(list.get(0).contains("]")){
-                    isEndOfArray--;
-                }
-                if(list.get(0).contains("[")){
-                    isEndOfArray++;
+                if(field.getName().equals("name")){
+                    System.out.println("dddddddd");
                 }
                 String fieldValue = getClearValue(list.remove(0));
                 setCastedFieldValue(object, field, fieldValue);
@@ -130,7 +130,12 @@ public class Main {
             System.out.println(clazz);
             List<Object> listOfObjects = new LinkedList<>();
             int counter = 0;
-            while (isEndOfArray != 0) {
+            String endArrayDataElem = getElemOfEndOfArrayData(list);
+            System.out.println("+==+=+=+====+" + endArrayDataElem);
+            while (true) {
+                if(list.get(0).equals(endArrayDataElem)){
+                    break;
+                }
                 className = getClearValue(className);
                 Class<?> clazzObject = Class.forName(className);
                 Object o = clazzObject.newInstance();
@@ -144,7 +149,6 @@ public class Main {
                 Array.set(array, counter, o);
                 counter++;
             }
-            //isEndOfArray = false;
             field.set(object, array);
         }
     }
@@ -186,7 +190,6 @@ public class Main {
      */
     private static void setValueInPrimitiveArrayField(Object object, Field field, List<String> list) throws ClassNotFoundException, IllegalAccessException {
         String className = field.getType().getTypeName();
-        Class<?> clazz = null;
         int counter = 1;
         for (String s : list) {
             if(s.contains("]")){
@@ -314,6 +317,28 @@ public class Main {
     }
 
 
+
+
+
+    private static List<String> getListWithMarksForElements(List<String> list){
+        List<String> newList = new LinkedList<>();
+        int counter = 0;
+        for (String word : list) {
+            newList.add(word);
+            if(word.contains("{")){
+                counter++;
+            }
+            if(word.contains("}")){
+                counter--;
+            }
+            if(counter == 0){
+                String markWord = ",";
+                newList.add(markWord);
+            }
+        }
+        return newList;
+    }
+
     /**
      * Метод для преобразования считаной из json файла строки и
      * преобразования ее в список строк
@@ -336,6 +361,7 @@ public class Main {
         }
         word = getWordWithOutSpaces(word);
         list.add(word);
+        list = getListWithMarksForElements(list);
         return list;
     }
 
@@ -362,4 +388,36 @@ public class Main {
         return newWord;
     }
 
+
+    private static String getElemOfEndOfArrayData(List<String> list){
+        int counter = 1;
+        for (int i = 1; i < list.size(); i++) {
+            System.out.println("----------------------" + list.get(i));
+            if(list.get(i).contains("[")){
+                int num = getNumOfSymbolInString(list.get(i), '[');
+                counter += num;
+            }
+            if(list.get(i).contains("]")){
+                int num = getNumOfSymbolInString(list.get(i), ']');
+                counter -= num;
+            }
+            if(counter <= 0){
+                return list.get(i + 1);
+            }
+        }
+        return null;
+    }
+
+
+
+    private static int getNumOfSymbolInString(String str, char symbol){
+        char[] chars = str.toCharArray();
+        int counter = 0;
+        for (int i = 0; i < chars.length; i++) {
+            if(chars[i] == symbol){
+                counter++;
+            }
+        }
+        return counter;
+    }
 }
