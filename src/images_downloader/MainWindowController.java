@@ -8,7 +8,6 @@ import java.io.IOException;
 
 public class MainWindowController {
 
-
     @FXML Button copyButton;
 
     @FXML Button choseButton;

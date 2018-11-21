@@ -20,7 +20,7 @@ public class MainWindowController {
     String result;
 
 
-    public void OnClickOutput() throws IllegalAccessException {
+    public void onClickOutput() throws IllegalAccessException {
         int[] numbers = {1,2,37,8};
         int[] numbers2 = {10,20,30,40,50};
         Rune[] runes1 = {new Rune("Эйн"),new Rune("Элледин")};
@@ -40,7 +40,7 @@ public class MainWindowController {
     }
 
 
-    public void OnClickCopy() throws IOException {
+    public void onClickCopy() throws IOException {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         fileChooser.setAcceptAllFileFilterUsed(false);

@@ -11,16 +11,8 @@ public class JsonDeserializer {
 
     public static void main(String[] args) throws IOException, IllegalAccessException, ClassNotFoundException, InstantiationException, NoSuchFieldException {
         File file = new File("src/json_deserializer/My.json");
-        String text = WordListWorker.getStringFromFile(file);
-//        System.out.println(text);
-        List<String> wordList = WordListWorker.getParsedList(text);
-//        int counter = 1;
-//        for (String s : wordList) {
-//            System.out.println(counter++ + ")" + s);
-//        }
-
         Character c = new Character();
-        List<Character> characterList = getDeserializedObjectList(c, wordList);
+        List<Character> characterList = getDeserializedObjectList(c,file);
 
         //System.out.println(characterList.size());
         for (Character character : characterList) {
@@ -35,7 +27,10 @@ public class JsonDeserializer {
      * Метод, который считывает поэлементно обьекты из списка слов. Тип обьекта
      * береться по типу переданого обьекта elem
      */
-    public static <E> List<E> getDeserializedObjectList(E elem, List<String> wordList) throws ClassNotFoundException, NoSuchFieldException, InstantiationException, IllegalAccessException {
+    public static <E> List<E> getDeserializedObjectList(E elem, File file) throws ClassNotFoundException, NoSuchFieldException, InstantiationException, IllegalAccessException, IOException {
+        String text = WordListWorker.getStringFromFile(file);
+        List<String> wordList = WordListWorker.getParsedList(text);
+
         List<E> objectsList = new LinkedList<>();
         while(!wordList.isEmpty()) {
             Class<E> objectType = (Class<E>) Class.forName(elem.getClass().getName());
