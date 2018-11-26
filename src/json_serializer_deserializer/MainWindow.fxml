@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0" prefWidth="1149.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="json_serializer_deserializer.MainWindowController">
+    <children>
+        <Button fx:id="outputButton" layoutX="29.0" layoutY="29.0" mnemonicParsing="false" onAction="#onClickOutput" text="Вывести в поле" />
+        <TextArea fx:id="textArea" editable="false" layoutX="56.0" layoutY="91.0" prefHeight="412.0" prefWidth="408.0" />
+        <Button fx:id="chooseButton" layoutX="169.0" layoutY="29.0" mnemonicParsing="false" onAction="#onClickChooseWhereCopy" text="Выбрать куда записывать" />
+      <Button fx:id="copyButton" layoutX="378.0" layoutY="29.0" mnemonicParsing="false" onAction="#onClickCopy" prefHeight="31.0" prefWidth="90.0" text="Записать" />
+      <Button fx:id="chooseFromButton" layoutX="565.0" layoutY="37.0" mnemonicParsing="false" onAction="#onClickChooseFromWhere" text="Выбрать откуда десериализовать" />
+      <Button fx:id="outputDeserializedButton" layoutX="945.0" layoutY="37.0" mnemonicParsing="false" onAction="#getFileDeserializedData" text="Вывести результат" />
+      <TextArea fx:id="textAreaDeaerilized" editable="false" layoutX="565.0" layoutY="95.0" prefHeight="404.0" prefWidth="527.0" />
+    </children>
+</AnchorPane>
